@@ -14,18 +14,4 @@ import { IMapa } from './mapa/mapa';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  mapas: IMapa[] = [
-    {
-      titulo: 'Little island 🏝️',
-      creador: 'nicopulvi',
-      likes: 3,
-      src: './pene.jpeg',
-    },
-    {
-      titulo: 'Sandy Shores 🌴🐠🌞❄️',
-      creador: 'nicopulvi',
-      likes: 3,
-      src: 'pene.jpeg',
-    },
-  ];
 }

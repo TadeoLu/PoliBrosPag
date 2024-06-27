@@ -1,0 +1,20 @@
+<div class="header">
+    <h1>PolisBros</h1>
+  </div>
+  
+  <div class="main-content">
+    <h2>CREA TUS PROPIOS MUNDOS!!!!</h2>
+    <p>Creado por los grandes programadores del poli, genovesi no.</p>
+    <a href="#" class="button">Iniciar Sesion</a>
+    <a href="#" class="button">Registrarse</a>
+  </div>
+  
+  <div class="showcase">
+    <div class="filters">
+      <button>Mas Popular</button>
+      <button>Nuevos</button>
+    </div>
+    <div class="world-grid">
+      <app-mapa *ngFor="let item of mapas" [item]="item"></app-mapa>
+    </div>
+  </div>
