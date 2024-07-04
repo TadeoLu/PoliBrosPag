@@ -3,8 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MapaComponent } from '../mapa/mapa.component';
 import { NgFor } from '@angular/common';
 import { IMapa } from '../mapa/mapa';
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'inicio-root',
@@ -19,13 +18,19 @@ export class InicioComponent {
       titulo: 'Little island 🏝️',
       creador: 'nicopulvi',
       likes: 3,
-      src: './pene.jpeg',
+      src: '../../facuhdr1.jpeg',
     },
     {
       titulo: 'Sandy Shores 🌴🐠🌞❄️',
       creador: 'nicopulvi',
       likes: 3,
-      src: 'pene.jpeg',
+      src: '../../facuhdr1.jpeg',
     },
   ];
+
+  constructor(private router: Router) {}
+
+  routerPerfil() {
+    this.router.navigateByUrl('perfil');
+  }
 }

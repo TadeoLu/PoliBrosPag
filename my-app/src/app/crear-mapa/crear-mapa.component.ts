@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Image {
   name: string;

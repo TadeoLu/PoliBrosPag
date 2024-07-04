@@ -1,0 +1,23 @@
+<div class="main-container">
+  <div class="section">
+    <div class="section-header">
+      <span>Mis Mapas</span>
+      <button (click)="routerCrearMapa()" class="create-button">Crear Mapa</button>
+    </div>
+  </div>
+  <div class="mismapas-container">
+    <div class="world-grid">
+      <app-mapa *ngFor="let item of mapasCreados" [item]="item"></app-mapa>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <span>Mis Mapas Guardados</span>
+    </div>
+  </div>
+  <div class="mapasguardados-container">
+    <div class="world-grid">
+      <app-mapa *ngFor="let item of mapasGuardados" [item]="item"></app-mapa>
+    </div>
+  </div>
+</div>
