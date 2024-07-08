@@ -21,7 +21,7 @@ export class InicioComponent {
       src: '../../facuhdr1.jpeg',
     },
     {
-      titulo: 'Sandy Shores 🌴🐠🌞❄️',
+      titulo: 'Sandy Shoes 🌴🐠🌞❄️',
       creador: 'nicopulvi',
       likes: 3,
       src: '../../facuhdr1.jpeg',
@@ -32,5 +32,13 @@ export class InicioComponent {
 
   routerPerfil() {
     this.router.navigateByUrl('perfil');
+  }
+
+  routerLogIn() {
+    this.router.navigateByUrl('inicio-sesion');
+  }
+
+  routerSingUp() {
+    this.router.navigateByUrl('registro');
   }
 }
