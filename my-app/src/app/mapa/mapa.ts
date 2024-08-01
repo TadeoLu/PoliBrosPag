@@ -3,4 +3,5 @@ export interface IMapa {
   creador: string;
   likes: number;
   src: string;
+  categoria: string;
 }

@@ -19,16 +19,39 @@ export class InicioComponent {
       creador: 'nicopulvi',
       likes: 3,
       src: '../../facuhdr1.jpeg',
+      categoria: 'nuevo',
     },
     {
       titulo: 'Sandy Shoes 🌴🐠🌞❄️',
       creador: 'nicopulvi',
       likes: 3,
       src: '../../facuhdr1.jpeg',
+      categoria: 'nuevo',
+    },
+    {
+      titulo: 'Crazy Honey 🌴🐠🌞❄️',
+      creador: 'ttomicas',
+      likes:66,
+      src: '../../facuhdr1.jpeg',
+      categoria: 'popular',
     },
   ];
+  filteredMapas: IMapa[] =[];
 
+  ngOnInit() {
+    this.filtrarMapas('popular'); // Mostrar mapas populares por defecto
+  }
+
+  
   constructor(private router: Router) {}
+
+  filtrarMapas(categoria: string) {
+    if (categoria === 'popular') {
+      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'popular');
+    } else if (categoria === 'nuevo') {
+      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'nuevo');
+    }
+  }
 
   routerPerfil() {
     this.router.navigateByUrl('perfil');
