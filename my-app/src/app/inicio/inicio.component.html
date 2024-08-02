@@ -7,10 +7,10 @@
 
 <div class="showcase">
   <div class="filters">
-    <button>Mas Popular</button>
-    <button>Nuevos</button>
+    <button (click)="filtrarMapas('popular')">Mas Popular</button>
+    <button (click)="filtrarMapas('nuevo')">Nuevos</button>
   </div>
   <div class="world-grid">
-    <app-mapa *ngFor="let item of mapas" [item]="item"></app-mapa>
+    <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
   </div>
 </div>

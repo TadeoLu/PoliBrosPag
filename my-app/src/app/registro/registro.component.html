@@ -1,4 +1,5 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="main-container">
+<div class="background">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="main-container">
   <div class="section">
     <div class="title">
       <h1>Registrar</h1>
@@ -29,5 +30,7 @@
     </div>
     <button type="submit" [disabled]="registerForm.invalid">Registrar</button>
   </div>
-</form>
+  </form>
+</div>
+
 
