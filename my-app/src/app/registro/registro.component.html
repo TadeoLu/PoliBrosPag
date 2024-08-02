@@ -1,22 +1,36 @@
 <div class="background">
-  <div class="main-container">
-    <div class="section">
-      <div class="title">
-        <h1>Registrar</h1>
-      </div>
-      <div class="nombre">
-        <h2>Nombre</h2>
-        <input type="text" name="nombre" id="nombre" />
-      </div>
-      <div class="mail">
-        <h2>Mail</h2>
-        <input type="email" name="mail" id="mail" />
-      </div>
-      <div class="password">
-        <h2>Contraseña</h2>
-        <input type="password" name="contraseña" id="contraseña" />
-      </div>
-      <button>Registrar</button>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="main-container">
+  <div class="section">
+    <div class="title">
+      <h1>Registrar</h1>
     </div>
+    <div class="nombre">
+      <h2>Nombre</h2>
+      <input type="text" formControlName="nombre" />
+      <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+        <small>El nombre es requerido.</small>
+      </div>
+    </div>
+    <div class="mail">
+      <h2>Mail</h2>
+      <input type="email" formControlName="mail" />
+      <div *ngIf="registerForm.get('mail')?.invalid && registerForm.get('mail')?.touched">
+        <small>El correo electrónico es requerido y debe ser válido.</small>
+      </div>
+    </div>
+    <div class="password">
+      <h2>Contraseña</h2>
+      <input type="password" formControlName="contraseña" />
+      <div *ngIf="registerForm.get('contraseña')?.invalid && registerForm.get('contraseña')?.touched">
+        <small>La contraseña es requerida y debe tener al menos 6 caracteres.</small>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="error">
+      <small>{{ errorMessage }}</small>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid">Registrar</button>
   </div>
+  </form>
 </div>
+
+
