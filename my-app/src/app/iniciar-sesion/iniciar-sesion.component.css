@@ -21,14 +21,14 @@ body {
     color: #333;
     margin-bottom: 20px;
 }
-.mail, .password {
+.user-input, .password {
     margin-bottom: 15px;
 }
-.mail h2, .password h2 {
+.user-input h2, .password h2 {
     margin: 0 0 5px;
     color: #555;
 }
-input[type="email"], input[type="password"] {
+input[type="text"], input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
