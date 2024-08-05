@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../../models/User';
 import { IniciarSesionService } from './iniciar-sesion.service';
+import { TokenStorageService } from '../token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -16,7 +18,8 @@ export class IniciarSesionComponent {
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private iniciarSesionService: IniciarSesionService) { }
+  constructor(private fb: FormBuilder, private iniciarSesionService: IniciarSesionService, private tokenStorageService: TokenStorageService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -45,9 +48,11 @@ export class IniciarSesionComponent {
 
 
       this.iniciarSesionService.postLogIn(newUser).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           console.log('Usuario registrado:', response);
+          this.tokenStorageService.saveToken(response.token);
           this.errorMessage = null;
+          this.router.navigateByUrl('perfil');
         },
         error: (error) => {
           if (error.status === 409) { // Suponiendo que el backend devuelve 409 para duplicados
