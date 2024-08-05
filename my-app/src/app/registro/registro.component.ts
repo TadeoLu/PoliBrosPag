@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '../../models/User';
 import { RegistroService } from './registro.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -16,7 +17,7 @@ export class RegistroComponent implements OnInit {
   registerForm!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private formBuilder: FormBuilder, private registroService: RegistroService) {}
+  constructor(private formBuilder: FormBuilder, private registroService: RegistroService, private router: Router) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -39,6 +40,7 @@ export class RegistroComponent implements OnInit {
         next: (response) => {
           console.log('Usuario registrado:', response);
           this.errorMessage = null;
+          this.routerInicioSesion();
         },
         error: (error) => {
           if (error.status === 409) { // Suponiendo que el backend devuelve 409 para duplicados
@@ -53,5 +55,9 @@ export class RegistroComponent implements OnInit {
         }
       });
     }
+  }
+
+  routerInicioSesion() {
+    this.router.navigateByUrl('inicio-sesion');
   }
 }

@@ -7,6 +7,25 @@
   min-height: 93.9vh;
 }
 
+.signout-container {
+  align-self: flex-end; /* Alinea el botón a la derecha */
+  margin-bottom: 20px;
+}
+
+.signout-button {
+  background-color: #dc3545; /* Color de fondo rojo para indicar acción de cerrar sesión */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signout-button:hover {
+  background-color: #c82333; /* Color más oscuro al pasar el ratón */
+}
+
 .mismapas-container {
   background-color: white;
   min-height: 12vh;

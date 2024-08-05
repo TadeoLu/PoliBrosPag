@@ -7,18 +7,28 @@ body {
 .header {
   background-color: #333;
   color: #fff;
-  padding: 10px 0;
-  text-align: center;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header img {
   vertical-align: middle;
 }
 .header h1 {
-  display: inline;
   font-size: 24px;
   margin: 0;
-  padding-left: 10px;
-  vertical-align: middle;
+}
+.navbar-right {
+  font-size: 24px;
+}
+.navbar-right i {
+  cursor: pointer;
+  padding: 0 10px;
+  color: #fff;
+}
+.navbar-right i:hover {
+  color: #ddd; /* Cambia el color del ícono al pasar el ratón sobre él */
 }
 .main-content {
   text-align: center;

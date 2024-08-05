@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapaComponent } from '../mapa/mapa.component';
 import { NgFor } from '@angular/common';
 import { IMapa } from '../mapa/mapa';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../token-storage.service';
 
 @Component({
   selector: 'inicio-root',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit{
   mapas: IMapa[] = [
     {
       titulo: 'Little island 🏝️',
@@ -37,13 +38,16 @@ export class InicioComponent {
     },
   ];
   filteredMapas: IMapa[] =[];
-
+  loggedIn: boolean = false;
+  
   ngOnInit() {
     this.filtrarMapas('popular'); // Mostrar mapas populares por defecto
+    this.loggedIn = this.tokenStorageService.isLoggedIn();
+    
   }
 
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenStorageService: TokenStorageService) {}
 
   filtrarMapas(categoria: string) {
     if (categoria === 'popular') {
@@ -55,6 +59,10 @@ export class InicioComponent {
 
   routerPerfil() {
     this.router.navigateByUrl('perfil');
+  }
+
+  routerCrearMapa() {
+    this.router.navigateByUrl('crear-mapa');
   }
 
   routerLogIn() {

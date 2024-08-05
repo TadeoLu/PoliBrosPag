@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MapaComponent } from '../mapa/mapa.component';
 import { IMapa } from '../mapa/mapa';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../token-storage.service';
 
 @Component({
   selector: 'app-perfil',
@@ -15,7 +16,12 @@ export class PerfilComponent {
   mapasGuardados: IMapa[] = [];
   mapasCreados: IMapa[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenStorageService: TokenStorageService) {}
+
+  signOut(){
+    this.tokenStorageService.singOut();
+    this.router.navigateByUrl('');
+  }
 
   routerCrearMapa() {
     this.router.navigateByUrl('crear-mapa');
