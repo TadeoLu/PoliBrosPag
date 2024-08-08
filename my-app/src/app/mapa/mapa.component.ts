@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMapa } from './mapa';
+import { IMapa } from '../../models/mapa';
 import { NgFor } from '@angular/common';
 
 @Component({
