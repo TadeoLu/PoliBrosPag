@@ -1,9 +1,10 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MapaComponent } from '../mapa/mapa.component';
-import { IMapa } from '../mapa/mapa';
+import { IMapa } from '../../models/Mapa';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-storage.service';
+import { MapaService } from '../mapa/mapa.service';
 
 @Component({
   selector: 'app-perfil',
@@ -12,15 +13,25 @@ import { TokenStorageService } from '../token-storage.service';
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css',
 })
-export class PerfilComponent {
+export class PerfilComponent{
   mapasGuardados: IMapa[] = [];
   mapasCreados: IMapa[] = [];
 
-  constructor(private router: Router, private tokenStorageService: TokenStorageService) {}
+  constructor(private router: Router, private tokenStorageService: TokenStorageService, private mapaService: MapaService) {}
+
+  ngOnInit(){
+    this.mapaService.getMapaFromCreator(this.tokenStorageService.getUser()).subscribe((data) => {
+      this.mapasCreados = data;
+      console.log(this.mapasCreados)
+    })
+  }
 
   signOut(){
     this.tokenStorageService.singOut();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('').then(() => {
+      window.location.reload()
+    }
+    );
   }
 
   routerCrearMapa() {

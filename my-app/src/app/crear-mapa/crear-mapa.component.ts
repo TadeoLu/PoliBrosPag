@@ -1,6 +1,10 @@
 import { NgFor } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { IMapa } from '../../models/Mapa';
+import { TokenStorageService } from '../token-storage.service';
+import { MapaService } from '../mapa/mapa.service';
+import { FormsModule } from '@angular/forms';
 
 interface Image {
   name: string;
@@ -10,7 +14,7 @@ interface Image {
 @Component({
   selector: 'app-crear-mapa',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FormsModule],
   templateUrl: './crear-mapa.component.html',
   styleUrls: ['./crear-mapa.component.css'],
 })
@@ -26,6 +30,9 @@ export class CrearMapaComponent implements AfterViewInit {
     { name: 'Image 3', src: '../../facuhdr3.jpg' },
   ];
   grid: (Image | null)[][] = [];
+  mapName: string = '';
+
+  constructor(private tokenStorageService: TokenStorageService, private mapaService: MapaService) {}
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
@@ -95,15 +102,24 @@ export class CrearMapaComponent implements AfterViewInit {
 
   exportToJson(): void {
     const json = JSON.stringify(this.grid, null, 2);
-    console.log(json);
+    const mapaPost: IMapa = {
+      id: -1,
+      name: this.mapName || 'Map',
+      valores: json,
+      photo: 'src',
+      likes: 0,
+      creator: this.tokenStorageService.getUser(),
+      categoria: 'nuevo'
+    }
+    this.mapaService.postMapa(mapaPost).subscribe();
     // Descargar el JSON como un archivo
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'grid.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    // const blob = new Blob([json], { type: 'application/json' });
+    // const url = URL.createObjectURL(blob);
+    // const a = document.createElement('a');
+    // a.href = url;
+    // a.download = 'grid.json';
+    // a.click();
+    // URL.revokeObjectURL(url);
   }
 
   handleFileInput(event: any): void {

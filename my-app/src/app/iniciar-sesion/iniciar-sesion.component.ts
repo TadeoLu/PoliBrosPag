@@ -52,7 +52,10 @@ export class IniciarSesionComponent {
           console.log('Usuario registrado:', response);
           this.tokenStorageService.saveToken(response.token);
           this.errorMessage = null;
-          this.router.navigateByUrl('perfil');
+          this.router.navigateByUrl('perfil').then(() => {
+            window.location.reload()
+          }
+          );
         },
         error: (error) => {
           if (error.status === 409) { // Suponiendo que el backend devuelve 409 para duplicados

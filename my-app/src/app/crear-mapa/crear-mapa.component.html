@@ -25,6 +25,22 @@
       style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
     />
 
+    <div style="display: inline-block; margin-right: 20px;">
+      <label for="mapName" style="margin-right: 10px;">Nombre del mapa:</label>
+      <input
+        type="text"
+        id="mapName"
+        [(ngModel)]="mapName" 
+        placeholder="Introduce el nombre del mapa"
+        style="
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+        "
+      />
+    </div>
+
     <button
       (click)="exportToJson()"
       style="
@@ -39,10 +55,11 @@
         margin: 4px 2px;
         cursor: pointer;
         border-radius: 4px;
-        margin-left: 100px;
+        margin-left: 20px;
       "
     >
       Exportar a JSON
     </button>
   </div>
 </div>
+

@@ -5,7 +5,8 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { IMapa } from '../../models/mapa';
+import { IMapa } from '../../models/Mapa';
+import { IUser } from '../../models/User';
 import { TokenStorageService } from '../token-storage.service';
 
 @Injectable({
@@ -54,5 +55,14 @@ export class MapaService {
         { headers: this.tokenStorageService.header() }
       )
       .pipe(catchError(this.handleError));
+  }
+
+  getMapaFromCreator(user: IUser): Observable<IMapa[]>{
+    return this.http
+    .get<IMapa[]>(
+      `${this.baseUrl}/api/mapas/${user.email}`,
+      { headers: this.tokenStorageService.header() }
+    )      
+    .pipe(catchError(this.handleError));
   }
 }

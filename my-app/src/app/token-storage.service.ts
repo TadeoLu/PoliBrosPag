@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {jwtDecode, JwtPayload} from 'jwt-decode';
 import { HttpHeaders } from '@angular/common/http';
+import { IUser } from '../models/User';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,13 +31,20 @@ export class TokenStorageService {
     window.sessionStorage.setItem("USER_KEY", JSON.stringify(user));
   }
 
-  public getUser(): any {
+  public getUser(): IUser {
     const user = window.sessionStorage.getItem("USER_KEY");
     if (user) {
-      return JSON.parse(user);
+      const parsed = JSON.parse(user);
+      parsed.password = 'a';
+      return parsed;
     }
 
-    return {};
+    return {
+      id: 0,
+      username: 'a',
+      email: 'a',
+      password: 'a'
+    };
   }
   
   getDecodedToken(): JwtPayload | null {
