@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { IMapa } from '../../models/Mapa'
+import { IMapa } from '../../models/Mapa';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mapa',
@@ -11,4 +12,10 @@ import { NgFor } from '@angular/common';
 })
 export class MapaComponent {
   @Input() item!: IMapa;
+
+  constructor(private router: Router) {}
+
+  verMundo(id: number) {
+    this.router.navigateByUrl(`/ver-mapa/${id}`);
+  }
 }

@@ -12,19 +12,23 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './iniciar-sesion.component.html',
-  styleUrl: './iniciar-sesion.component.css'
+  styleUrl: './iniciar-sesion.component.css',
 })
 export class IniciarSesionComponent {
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private iniciarSesionService: IniciarSesionService, private tokenStorageService: TokenStorageService,
-    private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private iniciarSesionService: IniciarSesionService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       userInput: ['', Validators.required],
-      contraseña: ['', [Validators.required, Validators.minLength(6)]]
+      contraseña: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -36,7 +40,7 @@ export class IniciarSesionComponent {
         id: -1,
         username: '',
         email: '',
-        password: ''
+        password: '',
       };
       if (isEmail) {
         newUser.email = userInput;
@@ -46,30 +50,28 @@ export class IniciarSesionComponent {
 
       newUser.password = this.loginForm.get('contraseña')?.value;
 
-
       this.iniciarSesionService.postLogIn(newUser).subscribe({
         next: (response: any) => {
           console.log('Usuario registrado:', response);
           this.tokenStorageService.saveToken(response.token);
           this.errorMessage = null;
           this.router.navigateByUrl('perfil').then(() => {
-            window.location.reload()
-          }
-          );
+            window.location.reload();
+          });
         },
         error: (error) => {
-          if (error.status === 409) { // Suponiendo que el backend devuelve 409 para duplicados
+          if (error.status === 409) {
+            // Suponiendo que el backend devuelve 409 para duplicados
             if (error.error.includes('email')) {
               this.errorMessage = 'El correo electrónico ya está registrado.';
             } else if (error.error.includes('username')) {
               this.errorMessage = 'El nombre de usuario ya está registrado.';
             }
           } else {
-            this.errorMessage = 'Ocurrió un error. Por favor, inténtelo de nuevo más tarde.';
+            this.errorMessage = 'El usuario/contraseña es incorrecto (PAPI).';
           }
-        }
+        },
       });
-
     } else {
       this.errorMessage = 'Por favor, corrija los errores en el formulario.';
     }

@@ -10,15 +10,17 @@ import { IUser } from '../../models/User';
 import { TokenStorageService } from '../token-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapaService {
-
   private baseUrl = 'http://127.0.0.1:3000';
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -38,31 +40,32 @@ export class MapaService {
     );
   }
 
+  getOneMapa(id: number): Observable<IMapa> {
+    return this.http
+      .get<IMapa>(`${this.baseUrl}/api/mapas/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   getMapas(): Observable<IMapa[]> {
     return this.http
-      .get<IMapa[]>(
-        `${this.baseUrl}/api/mapas`
-      )
+      .get<IMapa[]>(`${this.baseUrl}/api/mapas`)
       .pipe(catchError(this.handleError));
   }
 
   postMapa(mapa: IMapa): Observable<IMapa> {
-    const body = { mapa: mapa}
+    const body = { mapa: mapa };
     return this.http
-      .post<IMapa>(
-        `${this.baseUrl}/api/mapas`,
-        body,
-        { headers: this.tokenStorageService.header() }
-      )
+      .post<IMapa>(`${this.baseUrl}/api/mapas`, body, {
+        headers: this.tokenStorageService.header(),
+      })
       .pipe(catchError(this.handleError));
   }
 
-  getMapaFromCreator(user: IUser): Observable<IMapa[]>{
+  getMapaFromCreator(user: IUser): Observable<IMapa[]> {
     return this.http
-    .get<IMapa[]>(
-      `${this.baseUrl}/api/mapas/${user.email}`,
-      { headers: this.tokenStorageService.header() }
-    )      
-    .pipe(catchError(this.handleError));
+      .get<IMapa[]>(`${this.baseUrl}/api/mapas/creator/${user.email}`, {
+        headers: this.tokenStorageService.header(),
+      })
+      .pipe(catchError(this.handleError));
   }
 }

@@ -13,28 +13,32 @@ import { MapaService } from '../mapa/mapa.service';
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css',
 })
-export class PerfilComponent{
+export class PerfilComponent {
   mapasGuardados: IMapa[] = [];
   mapasCreados: IMapa[] = [];
 
-  constructor(private router: Router, private tokenStorageService: TokenStorageService, private mapaService: MapaService) {}
+  constructor(
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
+    private mapaService: MapaService
+  ) {}
 
-  ngOnInit(){
-    this.mapaService.getMapaFromCreator(this.tokenStorageService.getUser()).subscribe((data) => {
-      this.mapasCreados = data;
-      console.log(this.mapasCreados)
-    })
+  ngOnInit() {
+    this.mapaService
+      .getMapaFromCreator(this.tokenStorageService.getUser())
+      .subscribe((data) => {
+        this.mapasCreados = data;
+      });
   }
 
-  signOut(){
+  signOut() {
     this.tokenStorageService.singOut();
     this.router.navigateByUrl('').then(() => {
-      window.location.reload()
-    }
-    );
+      window.location.reload();
+    });
   }
 
   routerCrearMapa() {
-    this.router.navigateByUrl('crear-mapa');
+    this.router.navigate(['crear-mapa']);
   }
 }

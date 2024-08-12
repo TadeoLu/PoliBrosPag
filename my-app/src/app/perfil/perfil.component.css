@@ -31,9 +31,6 @@
   min-height: 12vh;
   min-width: 600px;
   padding: 20px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
 }
 
 .mapasguardados-container {
@@ -71,4 +68,11 @@
 .create-button:hover {
   background-color: #343a40;
   color: white;
+}
+
+.world-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
 }

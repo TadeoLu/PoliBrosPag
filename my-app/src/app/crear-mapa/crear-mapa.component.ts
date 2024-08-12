@@ -1,6 +1,6 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgStyle } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
@@ -14,7 +14,7 @@ interface Image {
 @Component({
   selector: 'app-crear-mapa',
   standalone: true,
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, NgStyle],
   templateUrl: './crear-mapa.component.html',
   styleUrls: ['./crear-mapa.component.css'],
 })
@@ -28,11 +28,52 @@ export class CrearMapaComponent implements AfterViewInit {
     { name: 'Image 1', src: '../../facuhdr1.jpeg' },
     { name: 'Image 2', src: '../../facuhdr2.jpg' },
     { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 2', src: '../../facuhdr2.jpg' },
+    { name: 'Image 3', src: '../../facuhdr3.jpg' },
   ];
   grid: (Image | null)[][] = [];
   mapName: string = '';
+  isVisible = false; // Controla la visibilidad del popup
 
-  constructor(private tokenStorageService: TokenStorageService, private mapaService: MapaService) {}
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private mapaService: MapaService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id !== null) {
+        this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
+          console.log(mapa);
+          this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
+        });
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
@@ -109,17 +150,10 @@ export class CrearMapaComponent implements AfterViewInit {
       photo: 'src',
       likes: 0,
       creator: this.tokenStorageService.getUser(),
-      categoria: 'nuevo'
-    }
+      categoria: 'nuevo',
+    };
     this.mapaService.postMapa(mapaPost).subscribe();
-    // Descargar el JSON como un archivo
-    // const blob = new Blob([json], { type: 'application/json' });
-    // const url = URL.createObjectURL(blob);
-    // const a = document.createElement('a');
-    // a.href = url;
-    // a.download = 'grid.json';
-    // a.click();
-    // URL.revokeObjectURL(url);
+    this.togglePopup();
   }
 
   handleFileInput(event: any): void {
@@ -186,5 +220,9 @@ export class CrearMapaComponent implements AfterViewInit {
     } else {
       console.error('El contexto 2D no está disponible.');
     }
+  }
+
+  togglePopup() {
+    this.isVisible = !this.isVisible; // Alterna la visibilidad
   }
 }

@@ -3,7 +3,7 @@
   <h3>{{ item.name }}</h3>
   <p>by {{ item.creator.username }}</p>
   <div class="info">
-    <a href="#">View World</a>
+    <button (click)="verMundo(item.id)">View World</button>
     <a href="#">More Info</a>
   </div>
   <div class="info">
