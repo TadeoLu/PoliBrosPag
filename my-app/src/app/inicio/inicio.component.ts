@@ -18,7 +18,8 @@ export class InicioComponent implements OnInit{
   mapas: IMapa[] = []
   filteredMapas: IMapa[] =[];
   loggedIn: boolean = false;
-  
+  marioSrc: string = "../../../public/img/marui.png"
+
   ngOnInit() {
     this.mapaService.getMapas().subscribe((data) => {
       this.mapas = data;
