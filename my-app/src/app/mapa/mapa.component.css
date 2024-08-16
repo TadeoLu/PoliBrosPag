@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -67,12 +69,25 @@ body {
   justify-content: center;
 }
 .world-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #302f2f,
+    #302f2f 6px,
+    #2a2929 0,
+    #2a2929 12px
+  );
+  font-family: "Catamaran", sans-serif;
+  font-weight: 1000;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 300px;
+  height: 350px;
   margin: 10px;
-  padding: 10px;
+  padding: 25px;
+  color: white;
   text-align: center;
 }
 .world-item img {
@@ -83,10 +98,25 @@ body {
   margin-bottom: 10px;
 }
 .world-item h3 {
-  font-size: 18px;
-  margin: 0 0 10px;
+  font-weight: 800;
+  font-size: 30px;
+  margin: 0;
+}
+
+.world-item p {
+  font-weight: 600;
+  margin: 0;
 }
 .world-item .info {
   display: flex;
   justify-content: space-between;
+}
+
+.world-item img{
+  background-image: url("../../../public/nohay.png");
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  width: 300px;
+  border-radius: 5px;
 }

@@ -1,34 +1,36 @@
-<div class="main-content" src>
-  <div>
-    <h2 _ngcontent-ng-c683500320="" style="margin-top: 32px">
-      El sitio oficial
-    </h2>
-    <h1>POLISBROS</h1>
-    <h3>
-      Explora la creatividad y la diversión creando niveles únicos para tu
-      juego. Con nuestras herramientas intuitivas, puedes diseñar escenarios
-      personalizados y ajustar cada detalle a tu gusto.
-    </h3>
-    <div class="sesion">
-      @if(!loggedIn){
-      <a (click)="routerLogIn()" class="button">Iniciar Sesion</a>
-      <a (click)="routerSingUp()" class="button">Registrarse</a>
-      }@else{
-      <a (click)="routerCrearMapa()" class="button">Crear Mapa</a>
-      }
+<div class="todo">
+  <div class="main-content" src>
+    <div class="left">
+      <h2 _ngcontent-ng-c683500320="" >
+        El sitio oficial
+      </h2>
+      <h1>POLIBROS</h1>
+      <h3>
+        Explora la creatividad y la diversión creando niveles únicos para tu
+        juego. Con nuestras herramientas intuitivas, puedes diseñar escenarios
+        personalizados y ajustar cada detalle a tu gusto.
+      </h3>
+      <div class="sesion">
+        @if(!loggedIn){
+        <a (click)="routerLogIn()" class="button">Iniciar Sesion</a>
+        <a (click)="routerSingUp()" class="button">Registrarse</a>
+        }@else{
+        <a (click)="routerCrearMapa()" class="button">Crear Mapa</a>
+        }
+      </div>
+    </div>
+    <div class="right">
+      <img class="mario" src={{marioSrc}} alt="Imagen" />
     </div>
   </div>
-  <div class="mario">
-    <img src="../../assets/marui.png" alt="" />
-  </div>
-</div>
 
-<div class="showcase">
-  <div class="filters">
-    <button (click)="filtrarMapas('popular')">Mas Popular</button>
-    <button (click)="filtrarMapas('nuevo')">Nuevos</button>
-  </div>
-  <div class="world-grid">
-    <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
+  <div class="showcase">
+    <div class="filters">
+      <button class="button" (click)="filtrarMapas('popular')">Mas Popular</button>
+      <button class="button" (click)="filtrarMapas('nuevo')">Nuevos</button>
+    </div>
+    <div class="world-grid">
+      <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
+    </div>
   </div>
 </div>

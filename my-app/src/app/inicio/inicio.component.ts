@@ -18,13 +18,13 @@ export class InicioComponent implements OnInit{
   mapas: IMapa[] = []
   filteredMapas: IMapa[] =[];
   loggedIn: boolean = false;
-  marioSrc: string = "../../../public/img/marui.png"
+  marioSrc: string = "../../../media/mario2.png"
 
   ngOnInit() {
     this.mapaService.getMapas().subscribe((data) => {
       this.mapas = data;
     })
-    this.filtrarMapas('popular'); // Mostrar mapas populares por defecto
+    this.filtrarMapas('nuevo'); // Mostrar mapas populares por defecto
     this.loggedIn = this.tokenStorageService.isLoggedIn();
   }
 
