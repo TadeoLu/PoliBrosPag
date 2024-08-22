@@ -11,21 +11,31 @@
 }
 
 h1 {
-
+  margin-bottom: 0;
 }
 
 h2 {
-
 }
 
 h3 {
-
 }
 
-.todo{
+.uno {
   display: flex;
   flex-direction: column;
-  background-image: url("../../../public/pondi.png");
+  background-image: url("../../../public/pondi.png"),
+    linear-gradient(180deg, #ff0000 16%, #c50435 76%);
+  overflow: hidden;
+}
+
+.dos {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../../public/pondi.png"),
+    linear-gradient(180deg, #0165e7 16%, #9717ff 76%);
+
+  overflow: hidden;
+  height: 1000px;
 }
 
 .sesion {
@@ -36,7 +46,7 @@ h3 {
   margin-top: 0;
 }
 
-.sesion button{
+.sesion button {
   margin-left: -10px;
   margin-right: 2rem;
 }
@@ -71,8 +81,6 @@ body {
   overflow: hidden;
 }
 
-
-
 .main-content h2 {
   margin-top: 0;
 }
@@ -99,7 +107,6 @@ body {
 }
 .showcase {
   background: transparent;
-  padding: 20px;
 }
 .showcase .filters {
   margin-bottom: 20px;
@@ -116,11 +123,57 @@ body {
 .showcase .filters button:hover {
   background-color: #03510a;
 } */
-.showcase .world-grid {
+
+.divisor {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  padding: 200px 0 300px 0;
+  margin-top: -300px;
+  margin-bottom: -300px;
+
+  width: auto;
+  height: auto; /* Puedes ajustar la altura según lo necesites */
+  background-color: #e60000; /* Color del divisor */
+  clip-path: polygon(0 100%, 100% 80%, 100% 0, 0 20%);
+  position: relative;
+
+  align-items: center;
   justify-content: center;
 }
+.divisor h1 {
+  color: white;
+  font-family: "Catamaran", sans-serif;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 80px;
+  align-items: center;
+  justify-content: center;
+}
+
+.botones-mapa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botones-mapa button {
+  width: 150px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.showcase .world-grid {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  height: 50%;
+  width: 75%;
+  background-color: transparent;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
 .showcase .world-grid .world-item {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -146,18 +199,18 @@ body {
   justify-content: space-between;
 }
 
-.left{
+.left {
   width: 60%;
   padding: 30px;
   display: flex;
   flex-direction: column;
 }
 
-.right{
+.right {
   width: 40%;
 }
 
-.left h1{
+.left h1 {
   font-family: "super_mario_256regular";
   letter-spacing: 3px;
   text-align: left;
@@ -166,7 +219,7 @@ body {
   margin-bottom: 0;
   color: white;
 }
-.left h2{
+.left h2 {
   font-family: "Catamaran", sans-serif;
   font-weight: 800;
   text-align: left;
@@ -176,7 +229,7 @@ body {
   color: white;
 }
 
-.left h3{
+.left h3 {
   font-family: "Catamaran", sans-serif;
   text-align: left;
   margin-top: 0;
@@ -186,20 +239,45 @@ body {
   font-weight: 600;
 }
 
-
 .right {
   background-image: url("../../../public/img/mario2.png");
   background-size: 0%;
   width: 100%;
   overflow-x: visible;
-
 }
 
-.mario{
+.mario {
+  margin-top: 40px;
   animation: slideUp 1s ease-out forwards; /* Inicia la animación al cargar la página */
   width: 120%;
-  position:relative;
-  
+  position: relative;
+}
+
+.app-mapa {
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar-track {
+  padding: 0px 50px 0px 50px;
+  background: #7a0000;
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9b0000;
+  border-radius: 50px;
+  width: 6px; /* Reduce el tamaño de la scroll thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
 }
 
 @keyframes slideUp {

@@ -1,14 +1,21 @@
-<div class="world-item">
+<div class="world-item" (click)="verMundo(item.id)">
   <img src="{{ item.photo }}" />
   <h3>{{ item.name }}</h3>
   <p>by {{ item.creator.username }}</p>
   <div class="info">
-    <button (click)="verMundo(item.id)">View World</button>
-    <a href="#">More Info</a>
-  </div>
-  <div class="info">
     <span>
-      <svg xmlns="http://www.w3.org/2000/svg" style="fill: white;" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z"/></svg>
-      {{ item.likes }}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        style="fill: white"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z"
+        />
+      </svg>
+      {{ item.likes }}</span
+    >
   </div>
 </div>

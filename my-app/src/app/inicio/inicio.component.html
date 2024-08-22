@@ -1,9 +1,7 @@
-<div class="todo">
+<div class="uno">
   <div class="main-content" src>
     <div class="left">
-      <h2 _ngcontent-ng-c683500320="" >
-        El sitio oficial
-      </h2>
+      <h2 _ngcontent-ng-c683500320="">El sitio oficial</h2>
       <h1>POLIBROS</h1>
       <h3>
         Explora la creatividad y la diversión creando niveles únicos para tu
@@ -20,17 +18,26 @@
       </div>
     </div>
     <div class="right">
-      <img class="mario" src={{marioSrc}} alt="Imagen" />
-    </div>
-  </div>
-
-  <div class="showcase">
-    <div class="filters">
-      <button class="button" (click)="filtrarMapas('popular')">Mas Popular</button>
-      <button class="button" (click)="filtrarMapas('nuevo')">Nuevos</button>
-    </div>
-    <div class="world-grid">
-      <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
+      <img class="mario" src="{{ marioSrc }}" alt="Imagen" />
     </div>
   </div>
 </div>
+
+<div class="showcase">
+  <div class="filters">
+    <div class="divisor">
+      <h1>¡Mapas de la comunidad!</h1>
+      <div class="botones-mapa">
+        <button class="button" (click)="filtrarMapas('popular')">
+          Mas Popular
+        </button>
+        <button class="button" (click)="filtrarMapas('nuevo')">Nuevos</button>
+      </div>
+      <div class="world-grid">
+        <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dos"></div>

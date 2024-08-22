@@ -89,9 +89,9 @@ button:disabled {
 }
 
 .container-boton {
-    justify-content: center;
-    display: flex;
-  }
+  justify-content: center;
+  display: flex;
+}
 
 .backgroud {
   background-color: #ffc300;

@@ -14,12 +14,16 @@ body {
     #2a2929 0,
     #2a2929 12px
   );
-  height: 14vh;
+  height: 10vh;
   color: #fff;
   padding: 10px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  z-index: 90;
+  width: auto;
+  overflow: hidden;
 }
 .header img {
   vertical-align: middle;

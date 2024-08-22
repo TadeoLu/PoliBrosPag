@@ -14,28 +14,35 @@ import { MapaService } from '../mapa/mapa.service';
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
 })
-export class InicioComponent implements OnInit{
-  mapas: IMapa[] = []
-  filteredMapas: IMapa[] =[];
+export class InicioComponent implements OnInit {
+  mapas: IMapa[] = [];
+  filteredMapas: IMapa[] = [];
   loggedIn: boolean = false;
-  marioSrc: string = "../../../media/mario2.png"
+  marioSrc: string = '../../../media/mario2.png';
 
   ngOnInit() {
     this.mapaService.getMapas().subscribe((data) => {
       this.mapas = data;
-    })
-    this.filtrarMapas('nuevo'); // Mostrar mapas populares por defecto
+      this.filtrarMapas('nuevo');
+    }); // Mostrar mapas populares por defecto
     this.loggedIn = this.tokenStorageService.isLoggedIn();
   }
 
-  
-  constructor(private router: Router, private tokenStorageService: TokenStorageService, private mapaService: MapaService) {}
+  constructor(
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
+    private mapaService: MapaService
+  ) {}
 
   filtrarMapas(categoria: string) {
     if (categoria === 'popular') {
-      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'popular');
+      this.filteredMapas = this.mapas.filter(
+        (mapa) => mapa.categoria === 'popular'
+      );
     } else if (categoria === 'nuevo') {
-      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'nuevo');
+      this.filteredMapas = this.mapas.filter(
+        (mapa) => mapa.categoria === 'nuevo'
+      );
     }
   }
 

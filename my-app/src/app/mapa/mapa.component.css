@@ -83,20 +83,33 @@ body {
   font-weight: 1000;
   font-size: 20px;
   border-radius: 20px;
-  width: 300px;
+  width: 225px;
   height: 350px;
-  margin: 10px;
+  margin-top: 30px;
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-bottom: 25px;
   padding: 25px;
   color: white;
   text-align: center;
+  overflow: hidden;
+  scroll-snap-align: center;
+  border: 2px solid transparent;
+  transition: 100ms;
 }
-.world-item img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+
+.world-item:hover {
+  border: 2px solid white;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #4a4a4a,
+    #4a4a4a 6px,
+    #434343 0,
+    #434343 12px
+  );
+  box-shadow: 0px 0px 5px #490000;
 }
+
 .world-item h3 {
   font-weight: 800;
   font-size: 30px;
@@ -110,13 +123,22 @@ body {
 .world-item .info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.world-item img{
+.world-item img {
   background-image: url("../../../public/nohay.png");
   background-size: cover;
   background-position: center;
-  height: 150px;
-  width: 300px;
-  border-radius: 5px;
+  height: 175px;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.world-item button {
+  height: 30px;
+  background-color: blue;
+  border: none;
 }

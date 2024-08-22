@@ -1,4 +1,7 @@
 <div class="background">
+  <br />
+  <br />
+  <br />
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="main-container">
     <div class="section">
       <div class="title">
@@ -13,7 +16,7 @@
             loginForm.get('userInput')?.touched
           "
         >
-          <small>Este campo es requerido.</small>
+          <small style="color: red">Este campo es requerido.</small>
         </div>
       </div>
       <div class="password">
@@ -25,18 +28,19 @@
             loginForm.get('contraseña')?.touched
           "
         >
-          <small
-            >La contraseña es requerida y debe tener al menos 6
-            caracteres.</small
-          >
+          <small style="color: red">Debe tener al menos 6 caracteres.</small>
         </div>
       </div>
       <div *ngIf="errorMessage" class="error">
         <small>{{ errorMessage }}</small>
       </div>
       <div class="container-boton">
-        <button type="submit" [disabled]="loginForm.invalid">
-          Iniciar Sesión
+        <button
+          class="button-sesion"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Continuar
         </button>
       </div>
     </div>
