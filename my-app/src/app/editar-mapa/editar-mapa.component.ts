@@ -12,13 +12,13 @@ interface Image {
 }
 
 @Component({
-  selector: 'app-crear-mapa',
+  selector: 'app-editar-mapa',
   standalone: true,
   imports: [NgFor, FormsModule, NgStyle],
-  templateUrl: './crear-mapa.component.html',
-  styleUrls: ['./crear-mapa.component.css'],
+  templateUrl: './editar-mapa.component.html',
+  styleUrls: ['./editar-mapa.component.css'],
 })
-export class CrearMapaComponent implements AfterViewInit {
+export class EditarMapaComponent implements AfterViewInit {
   @ViewChild('myCanvas', { static: true })
   canvasRef!: ElementRef<HTMLCanvasElement>;
   private squareWidth = 24;
@@ -58,11 +58,9 @@ export class CrearMapaComponent implements AfterViewInit {
   mapName: string = '';
   isVisible = false; // Controla la visibilidad del popup
   mapaPublicado: boolean = false;
-  idMapa?: number;
+  mapa!: IMapa;
   dragging: boolean = false; // Estado de arrastre
   context: CanvasRenderingContext2D | null = null;
-
-  isGuardar: boolean = false;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -75,7 +73,7 @@ export class CrearMapaComponent implements AfterViewInit {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
-          console.log(mapa);
+          this.mapa = mapa;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
         });
       }
@@ -181,23 +179,6 @@ export class CrearMapaComponent implements AfterViewInit {
     this.selectedImage = image;
   }
 
-  exportToJson(): void {
-    const json = JSON.stringify(this.grid, null, 2);
-    const mapaPost: IMapa = {
-      id: -1,
-      name: this.mapName || 'Map',
-      valores: json,
-      photo: 'src',
-      likes: 0,
-      creator: this.tokenStorageService.getUser(),
-      categoria: 'nuevo',
-    };
-    this.mapaService.postMapa(mapaPost).subscribe((id: number) => {
-      this.idMapa = id;
-      this.mapaPublicado = true;
-    });
-  }
-
   handleFileInput(event: any): void {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -262,11 +243,16 @@ export class CrearMapaComponent implements AfterViewInit {
     }
   }
 
-  togglePopup() {
-    this.isVisible = !this.isVisible; // Alterna la visibilidad
+  guardar() {
+    const json = JSON.stringify(this.grid, null, 2);
+    if (this.mapa) {
+      this.mapa.valores = json;
+      this.mapaService.updateMapa(this.mapa).subscribe();
+    }
   }
 
-  togglePopupGuardado() {
-    this.isGuardar = !this.isGuardar; // Alterna la visibilidad
+  togglePopup() {
+    this.isVisible = !this.isVisible; // Alterna la visibilidad
+    this.guardar();
   }
 }

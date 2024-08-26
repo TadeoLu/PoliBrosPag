@@ -4,6 +4,7 @@
     (ngSubmit)="onSubmit()"
     class="main-container"
   >
+    @if(!seRegistro){
     <div class="section">
       <div class="title">
         <h1>Registrar</h1>
@@ -17,7 +18,7 @@
             registerForm.get('nombre')?.touched
           "
         >
-          <small>El nombre es requerido.</small>
+          <small style="color: red">El nombre es requerido.</small>
         </div>
       </div>
       <div class="mail">
@@ -29,7 +30,9 @@
             registerForm.get('mail')?.touched
           "
         >
-          <small>El correo electrónico es requerido y debe ser válido.</small>
+          <small style="color: red"
+            >El correo electrónico es requerido y debe ser válido.</small
+          >
         </div>
       </div>
       <div class="password">
@@ -41,7 +44,7 @@
             registerForm.get('contraseña')?.touched
           "
         >
-          <small
+          <small style="color: red"
             >La contraseña es requerida y debe tener al menos 6
             caracteres.</small
           >
@@ -56,5 +59,17 @@
         </button>
       </div>
     </div>
+    } @else {
+    <div class="section">
+      <div class="nombre">
+        <h2>¡Usuario Registado Correctamente!</h2>
+      </div>
+      <div class="container-boton">
+        <button type="submit" (click)="routerInicioSesion()">
+          Iniciar Sesion
+        </button>
+      </div>
+    </div>
+    }
   </form>
 </div>

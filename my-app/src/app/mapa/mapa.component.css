@@ -142,3 +142,27 @@ body {
   background-color: blue;
   border: none;
 }
+
+#popup {
+  width: 300px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: absolute;
+  transform: translateY(-215%);
+}
+
+#popup::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 48.5%;
+  transform: translate(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+}

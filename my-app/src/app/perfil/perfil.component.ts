@@ -27,6 +27,7 @@ export class PerfilComponent {
     this.mapaService
       .getMapaFromCreator(this.tokenStorageService.getUser())
       .subscribe((data) => {
+        console.log(this.tokenStorageService.getUser());
         this.mapasCreados = data;
       });
   }

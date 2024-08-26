@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {jwtDecode, JwtPayload} from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { HttpHeaders } from '@angular/common/http';
 import { IUser } from '../models/User';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorageService {
   constructor() {}
@@ -13,26 +13,25 @@ export class TokenStorageService {
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem("TOKEN_KEY");
-    window.sessionStorage.setItem('TOKEN_KEY',token);
+    window.sessionStorage.removeItem('TOKEN_KEY');
+    window.sessionStorage.setItem('TOKEN_KEY', token);
     this.saveUser();
   }
 
   public getToken(): string | null {
-    return window.sessionStorage.getItem("TOKEN_KEY");
+    return window.sessionStorage.getItem('TOKEN_KEY');
   }
 
   public saveUser(): void {
-    window.sessionStorage.removeItem("USER_KEY");
+    window.sessionStorage.removeItem('USER_KEY');
     const user = this.getDecodedToken();
     delete user?.iat;
     delete user?.exp;
-    console.log('User:', user);
-    window.sessionStorage.setItem("USER_KEY", JSON.stringify(user));
+    window.sessionStorage.setItem('USER_KEY', JSON.stringify(user));
   }
 
   public getUser(): IUser {
-    const user = window.sessionStorage.getItem("USER_KEY");
+    const user = window.sessionStorage.getItem('USER_KEY');
     if (user) {
       const parsed = JSON.parse(user);
       parsed.password = 'a';
@@ -43,10 +42,10 @@ export class TokenStorageService {
       id: 0,
       username: 'a',
       email: 'a',
-      password: 'a'
+      password: 'a',
     };
   }
-  
+
   getDecodedToken(): JwtPayload | null {
     const token = this.getToken();
     if (token) {
@@ -62,7 +61,7 @@ export class TokenStorageService {
 
   public header(): any {
     return new HttpHeaders({
-      'x-access-token': this.getToken() || ''
+      'x-access-token': this.getToken() || '',
     });
   }
 
@@ -80,11 +79,10 @@ export class TokenStorageService {
     // Verifica si el token ha expirado
     const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
     if (decodedToken.exp && decodedToken.exp < currentTime) {
+      this.singOut();
       return false;
     }
 
     return true;
   }
 }
-
-

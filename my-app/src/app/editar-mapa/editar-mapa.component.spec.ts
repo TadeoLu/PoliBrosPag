@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearMapaComponent } from './crear-mapa.component';
+import { EditarMapaComponent } from './editar-mapa.component';
 
-describe('CrearMapaComponent', () => {
-  let component: CrearMapaComponent;
-  let fixture: ComponentFixture<CrearMapaComponent>;
+describe('EditarMapaComponent', () => {
+  let component: EditarMapaComponent;
+  let fixture: ComponentFixture<EditarMapaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CrearMapaComponent]
+      imports: [EditarMapaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CrearMapaComponent);
+    fixture = TestBed.createComponent(EditarMapaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,4 +21,3 @@ describe('CrearMapaComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

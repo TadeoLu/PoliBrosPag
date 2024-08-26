@@ -52,10 +52,10 @@ export class MapaService {
       .pipe(catchError(this.handleError));
   }
 
-  postMapa(mapa: IMapa): Observable<IMapa> {
+  postMapa(mapa: IMapa): Observable<number> {
     const body = { mapa: mapa };
     return this.http
-      .post<IMapa>(`${this.baseUrl}/api/mapas`, body, {
+      .post<number>(`${this.baseUrl}/api/mapas`, body, {
         headers: this.tokenStorageService.header(),
       })
       .pipe(catchError(this.handleError));
@@ -64,6 +64,23 @@ export class MapaService {
   getMapaFromCreator(user: IUser): Observable<IMapa[]> {
     return this.http
       .get<IMapa[]>(`${this.baseUrl}/api/mapas/creator/${user.email}`, {
+        headers: this.tokenStorageService.header(),
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteMapa(id: number): Observable<IMapa> {
+    return this.http
+      .delete<IMapa>(`${this.baseUrl}/api/mapas/${id}`, {
+        headers: this.tokenStorageService.header(),
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  updateMapa(mapa: IMapa): Observable<IMapa> {
+    const body = { mapa: mapa };
+    return this.http
+      .put<IMapa>(`${this.baseUrl}/api/mapas/`, body, {
         headers: this.tokenStorageService.header(),
       })
       .pipe(catchError(this.handleError));
