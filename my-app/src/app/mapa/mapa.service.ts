@@ -85,4 +85,13 @@ export class MapaService {
       })
       .pipe(catchError(this.handleError));
   }
+
+  addVisita(mapa: IMapa): Observable<IMapa> {
+    const body = { mapa: mapa };
+    return this.http
+      .put<IMapa>(`${this.baseUrl}/api/mapas/visita`, body, {
+        headers: this.tokenStorageService.header(),
+      })
+      .pipe(catchError(this.handleError));
+  }
 }

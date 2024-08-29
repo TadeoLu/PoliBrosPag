@@ -1,4 +1,4 @@
-import { NgFor, NgStyle } from '@angular/common';
+import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IMapa } from '../../models/Mapa';
@@ -14,7 +14,7 @@ interface Image {
 @Component({
   selector: 'app-editar-mapa',
   standalone: true,
-  imports: [NgFor, FormsModule, NgStyle],
+  imports: [NgFor, FormsModule, NgStyle, NgClass],
   templateUrl: './editar-mapa.component.html',
   styleUrls: ['./editar-mapa.component.css'],
 })
@@ -25,33 +25,12 @@ export class EditarMapaComponent implements AfterViewInit {
   private squareHeight = 24;
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
+    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
+    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
+    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
   ];
 
   grid: (Image | null)[][] = [];
@@ -61,6 +40,7 @@ export class EditarMapaComponent implements AfterViewInit {
   mapa!: IMapa;
   dragging: boolean = false; // Estado de arrastre
   context: CanvasRenderingContext2D | null = null;
+  activoIndex: number | null = null;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -175,8 +155,9 @@ export class EditarMapaComponent implements AfterViewInit {
     }
   }
 
-  selectImage(image: Image): void {
+  selectImage(image: Image, index: number): void {
     this.selectedImage = image;
+    this.activoIndex = index;
   }
 
   handleFileInput(event: any): void {

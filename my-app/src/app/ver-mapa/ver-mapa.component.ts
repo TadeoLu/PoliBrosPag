@@ -31,7 +31,7 @@ export class VerMapaComponent {
   ];
   grid: (Image | null)[][] = [];
   mapName: string = '';
-  mapa!: IMapa;
+  creator!: string;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -44,11 +44,10 @@ export class VerMapaComponent {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
-          this.mapa = mapa;
           this.mapName = mapa.name;
+          this.creator = mapa.creator.username;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
-          this.mapa.likes += 1;
-          this.mapaService.updateMapa(this.mapa).subscribe();
+          this.mapaService.addVisita(mapa).subscribe();
         });
       }
     });
