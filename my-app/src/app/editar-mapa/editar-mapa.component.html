@@ -1,0 +1,28 @@
+<div class="todo">
+  <div class="mapa">
+    <div class="container">
+      <canvas #myCanvas width="768" height="384"></canvas>
+    </div>
+    <div style="padding-top: 10px" class="container">
+      <div class="imagenes">
+        <img
+          [ngClass]="{ activo: activoIndex === i }"
+          *ngFor="let image of images; let i = index"
+          [src]="image.src"
+          [alt]="image.name"
+          (click)="selectImage(image, i)"
+          width="50"
+          height="50"
+        />
+      </div>
+    </div>
+    <button class="btn" (click)="togglePopup()">Guardar</button>
+  </div>
+  <div [ngStyle]="{ display: isVisible ? 'block' : 'none' }" id="popup">
+    <div style="display: inline-block; margin-right: 20px">
+      <label for="mapName" style="margin: 10px; font-size: xx-large"
+        >Guardado</label
+      >
+    </div>
+  </div>
+</div>

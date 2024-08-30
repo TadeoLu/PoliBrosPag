@@ -1,16 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-image: url("../../public/pondi.png");
 }
 .header {
-  background-color: #333;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #302f2f,
+    #302f2f 6px,
+    #2a2929 0,
+    #2a2929 12px
+  );
+  height: 10vh;
   color: #fff;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  width: auto;
+  overflow: hidden;
 }
 .header img {
   vertical-align: middle;
@@ -38,19 +52,32 @@ body {
 .main-content h2 {
   margin-top: 0;
 }
-.button {
-  display: inline-block;
-  margin: 10px 5px;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 16px;
+.button-container {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
-.button:hover {
-  background-color: #0056b3;
+button {
+  font-family: "Catamaran", sans-serif;
+  font-weight: bolder;
+  font-size: 25px;
+  background: none;
+  border: 3px solid transparent;
+  border-radius: 7px;
+  color: white;
+  padding: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 3.5rem;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  width: 200px;
+}
+button:hover {
+  background-color: #1b1b1b;
+  border: 3px solid white;
+  border-radius: 7px;
 }
 .showcase {
   background-color: green;

@@ -1,10 +1,10 @@
 .main-container {
   padding: 20px;
-  background-color: yellow;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 93.9vh;
+  background-image: url("../../../public/pondi.png");
 }
 
 .signout-container {
@@ -29,14 +29,14 @@
 .mismapas-container {
   background-color: white;
   min-height: 12vh;
-  min-width: 600px;
+  width: 750px;
   padding: 20px;
 }
 
 .mapasguardados-container {
   background-color: white;
   min-height: 12vh;
-  min-width: 600px;
+  width: 750px;
   padding: 20px;
 }
 
@@ -44,7 +44,7 @@
   background-color: #343a40;
   color: white;
   padding: 20px;
-  min-width: 600px;
+  min-width: 750.5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,4 +68,11 @@
 .create-button:hover {
   background-color: #343a40;
   color: white;
+}
+
+.world-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
 }

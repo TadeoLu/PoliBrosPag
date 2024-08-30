@@ -1,48 +1,65 @@
 <div class="todo">
-  <div class="container">
-    <canvas
-      style="background-color: white"
-      #myCanvas
-      width="768"
-      height="384"
-    ></canvas>
+  <div class="mapa">
+    <div style="height: auto" class="container-canvas">
+      <canvas #myCanvas width="768" height="384"></canvas>
+    </div>
+    <div style="padding-top: 10px" class="container">
+      <div class="imagenes">
+        <img
+          [ngClass]="{ activo: activoIndex === i }"
+          *ngFor="let image of images; let i = index"
+          [src]="image.src"
+          [alt]="image.name"
+          (click)="selectImage(image, i)"
+          width="50"
+          height="50"
+        />
+      </div>
+      <button class="btn" (click)="togglePopup()">Publicar Mapa</button>
+    </div>
   </div>
-  <div class="container">
-    <div>
-      <img
-        style="height: 64px; width: 64px; padding-left: 20px"
-        *ngFor="let image of images"
-        [src]="image.src"
-        [alt]="image.name"
-        (click)="selectImage(image)"
-        width="50"
-        height="50"
+
+  <div [ngStyle]="{ display: isVisible ? 'block' : 'none' }" id="popup">
+    @if(!mapaPublicado){
+    <div style="display: inline-block; margin-right: 20px">
+      <label for="mapName" style="margin: 10px; font-size: xx-large"
+        >Nombre del mapa:</label
+      >
+      <input
+        type="text"
+        id="mapName"
+        [(ngModel)]="mapName"
+        placeholder=""
+        style="
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+          width: 100%;
+        "
       />
     </div>
-    <input
-      type="file"
-      (change)="handleFileInput($event)"
-      style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
-    />
-
+    <button
+      (click)="togglePopup()"
+      style="margin: 10px; background-color: red"
+      class="btn"
+    >
+      CANCELAR
+    </button>
     <button
       (click)="exportToJson()"
-      style="
-        background-color: #4caf50; /* Green */
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-        margin-left: 100px;
-      "
+      style="margin: 10px; background-color: #4caf50"
+      class="btn"
     >
-      Exportar a JSON
+      PUBLICAR
     </button>
+    } @else {
+    <div class="">
+      <label for="mapName" style="margin: 10px; font-size: xx-large"
+        >Mapa publicado</label
+      >
+      <h1>{{ idMapa }}</h1>
+    </div>
+    }
   </div>
 </div>

@@ -1,93 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
+
+@font-face {
+  font-family: "super_mario_256regular";
+  src: url("../../../public/webfontkit-20240815-141056/supermario256.woff")
+      format("woff2"),
+    url("../../../public/webfontkit-20240815-141056/supermario256.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+h2 {
+}
+
+h3 {
+}
+
+.uno {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../../public/pondi.png"),
+    linear-gradient(180deg, #ff0000 16%, #c50435 76%);
+  overflow: hidden;
+}
+
+.dos {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../../public/pondi.png"),
+    linear-gradient(180deg, #0165e7 16%, #9717ff 76%);
+
+  overflow: hidden;
+  height: 1000px;
+}
+
+.sesion {
+  font-family: "Catamaran", sans-serif;
+  display: flex;
+  align-items: baseline;
+  height: 100px;
+  margin-top: 0;
+}
+
+.sesion button {
+  margin-left: -10px;
+  margin-right: 2rem;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  background-color: #0050c1;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+.header img {
+  vertical-align: middle;
+}
+.header h1 {
+  display: inline;
+  font-size: 24px;
+  margin: 0;
+  padding-left: 10px;
+  vertical-align: middle;
+}
+.main-content {
+  text-align: center;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.main-content h2 {
+  margin-top: 0;
+}
+.button {
+  background-color: white;
+  border-radius: 50px;
+  padding: 20px;
+  margin: 15px;
+  border: solid 3px white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+  border: solid 3px white;
+}
+.showcase {
+  background: transparent;
+}
+.showcase .filters {
+  margin-bottom: 20px;
+}
+/* .showcase .filters button {
+  margin: 0 5px;
+  padding: 10px 20px;
+  background-color: #03850f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.showcase .filters button:hover {
+  background-color: #03510a;
+} */
+
+.divisor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 200px 0 300px 0;
+  margin-top: -300px;
+  margin-bottom: -300px;
+
+  width: auto;
+  height: auto; /* Puedes ajustar la altura según lo necesites */
+  background-color: #e60000; /* Color del divisor */
+  clip-path: polygon(0 100%, 100% 80%, 100% 0, 0 20%);
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+}
+.divisor h1 {
+  color: white;
+  font-family: "Catamaran", sans-serif;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.botones-mapa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botones-mapa button {
+  width: 150px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.showcase .world-grid {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  height: 50%;
+  width: 75%;
+  background-color: transparent;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.showcase .world-grid .world-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.showcase .world-grid .world-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+.showcase .world-grid .world-item h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+.showcase .world-grid .world-item .info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  width: 60%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  width: 40%;
+}
+
+.left h1 {
+  font-family: "super_mario_256regular";
+  letter-spacing: 3px;
+  text-align: left;
+  font-size: 800%;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
+}
+.left h2 {
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+  text-align: left;
+  font-size: 2.5rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: white;
+}
+
+.left h3 {
+  font-family: "Catamaran", sans-serif;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.right {
+  background-image: url("../../../public/img/mario2.png");
+  background-size: 0%;
+  width: 100%;
+  overflow-x: visible;
+}
+
+.mario {
+  margin-top: 40px;
+  animation: slideUp 1s ease-out forwards; /* Inicia la animación al cargar la página */
+  width: 120%;
+  position: relative;
+}
+
+.app-mapa {
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar-track {
+  padding: 0px 50px 0px 50px;
+  background: #7a0000;
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9b0000;
+  border-radius: 50px;
+  width: 6px; /* Reduce el tamaño de la scroll thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20%) translateX(0px); /* Comienza fuera de la vista */
   }
-  .header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
+  to {
+    transform: translateY(0) translateX(-75px); /* Se mueve a la posición original */
   }
-  .header img {
-    vertical-align: middle;
-  }
-  .header h1 {
-    display: inline;
-    font-size: 24px;
-    margin: 0;
-    padding-left: 10px;
-    vertical-align: middle;
-  }
-  .main-content {
-    text-align: center;
-    padding: 20px;
-    background-color: slategray;
-  }
-  .main-content h2 {
-    margin-top: 0;
-  }
-  .button {
-    display: inline-block;
-    margin: 10px 5px;
-    padding: 10px 20px;
-    color: #fff;
-    background-color: #03850F;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  .button:hover {
-    background-color: #03510A;
-  }
-  .showcase {
-    
-    padding: 20px;
-  }
-  .showcase .filters {
-    margin-bottom: 20px;
-  }
-  .showcase .filters button {
-    margin: 0 5px;
-    padding: 10px 20px;
-    background-color: #03850F;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .showcase .filters button:hover {
-    background-color: #03510A;
-  }
-  .showcase .world-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .showcase .world-grid .world-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 200px;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-  }
-  .showcase .world-grid .world-item img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-  }
-  .showcase .world-grid .world-item h3 {
-    font-size: 18px;
-    margin: 0 0 10px;
-  }
-  .showcase .world-grid .world-item .info {
-    display: flex;
-    justify-content: space-between;
-  }
-  
+}

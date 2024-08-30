@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapaComponent } from '../mapa/mapa.component';
 import { NgFor } from '@angular/common';
-import { IMapa } from '../mapa/mapa';
+import { IMapa } from '../../models/Mapa';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-storage.service';
+import { MapaService } from '../mapa/mapa.service';
 
 @Component({
   selector: 'inicio-root',
@@ -13,47 +14,35 @@ import { TokenStorageService } from '../token-storage.service';
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
 })
-export class InicioComponent implements OnInit{
-  mapas: IMapa[] = [
-    {
-      titulo: 'Little island 🏝️',
-      creador: 'nicopulvi',
-      likes: 3,
-      src: '../../facuhdr1.jpeg',
-      categoria: 'nuevo',
-    },
-    {
-      titulo: 'Sandy Shoes 🌴🐠🌞❄️',
-      creador: 'nicopulvi',
-      likes: 3,
-      src: '../../facuhdr1.jpeg',
-      categoria: 'nuevo',
-    },
-    {
-      titulo: 'Crazy Honey 🌴🐠🌞❄️',
-      creador: 'ttomicas',
-      likes:66,
-      src: '../../facuhdr1.jpeg',
-      categoria: 'popular',
-    },
-  ];
-  filteredMapas: IMapa[] =[];
+export class InicioComponent implements OnInit {
+  mapas: IMapa[] = [];
+  filteredMapas: IMapa[] = [];
   loggedIn: boolean = false;
-  
+  marioSrc: string = '../../../media/mario2.png';
+
   ngOnInit() {
-    this.filtrarMapas('popular'); // Mostrar mapas populares por defecto
+    this.mapaService.getMapas().subscribe((data) => {
+      this.mapas = data;
+      this.filtrarMapas('nuevo');
+    }); // Mostrar mapas populares por defecto
     this.loggedIn = this.tokenStorageService.isLoggedIn();
-    
   }
 
-  
-  constructor(private router: Router, private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private router: Router,
+    private tokenStorageService: TokenStorageService,
+    private mapaService: MapaService
+  ) {}
 
   filtrarMapas(categoria: string) {
     if (categoria === 'popular') {
-      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'popular');
+      this.filteredMapas = this.mapas.filter(
+        (mapa) => mapa.categoria === 'popular'
+      );
     } else if (categoria === 'nuevo') {
-      this.filteredMapas = this.mapas.filter(mapa => mapa.categoria === 'nuevo');
+      this.filteredMapas = this.mapas.filter(
+        (mapa) => mapa.categoria === 'nuevo'
+      );
     }
   }
 

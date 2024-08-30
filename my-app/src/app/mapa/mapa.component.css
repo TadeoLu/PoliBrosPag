@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -67,26 +69,100 @@ body {
   justify-content: center;
 }
 .world-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 200px;
-  margin: 10px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #302f2f,
+    #302f2f 6px,
+    #2a2929 0,
+    #2a2929 12px
+  );
+  font-family: "Catamaran", sans-serif;
+  font-weight: 1000;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 225px;
+  height: 300px;
+  margin-top: 30px;
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  padding: 25px;
+  color: white;
   text-align: center;
+  overflow: hidden;
+  scroll-snap-align: center;
+  border: 2px solid transparent;
+  transition: 100ms;
 }
-.world-item img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+
+.world-item:hover {
+  border: 2px solid white;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #4a4a4a,
+    #4a4a4a 6px,
+    #434343 0,
+    #434343 12px
+  );
+  box-shadow: 0px 0px 5px #490000;
 }
+
 .world-item h3 {
-  font-size: 18px;
-  margin: 0 0 10px;
+  font-weight: 800;
+  font-size: 30px;
+  margin: 0;
+}
+
+.world-item p {
+  font-weight: 600;
+  margin: 0;
 }
 .world-item .info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.world-item img {
+  background-image: url("../../../public/nohay.png");
+  background-size: cover;
+  background-position: center;
+  height: 175px;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.world-item button {
+  height: 30px;
+  background-color: blue;
+  border: none;
+}
+
+#popup {
+  width: 300px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: absolute;
+  transform: translateY(-215%);
+}
+
+#popup::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 48.5%;
+  transform: translate(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
 }

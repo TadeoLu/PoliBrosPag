@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class RegistroComponent implements OnInit {
   registerForm!: FormGroup;
   errorMessage: string | null = null;
-
+  seRegistro : boolean = false;
   constructor(private formBuilder: FormBuilder, private registroService: RegistroService, private router: Router) {}
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class RegistroComponent implements OnInit {
         next: (response) => {
           console.log('Usuario registrado:', response);
           this.errorMessage = null;
-          this.routerInicioSesion();
+          this.seRegistro = true;
         },
         error: (error) => {
           if (error.status === 409) { // Suponiendo que el backend devuelve 409 para duplicados

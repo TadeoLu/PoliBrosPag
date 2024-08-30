@@ -1,6 +1,10 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { IMapa } from '../../models/Mapa';
+import { TokenStorageService } from '../token-storage.service';
+import { MapaService } from '../mapa/mapa.service';
+import { FormsModule } from '@angular/forms';
 
 interface Image {
   name: string;
@@ -10,7 +14,7 @@ interface Image {
 @Component({
   selector: 'app-crear-mapa',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FormsModule, NgStyle, NgClass],
   templateUrl: './crear-mapa.component.html',
   styleUrls: ['./crear-mapa.component.css'],
 })
@@ -21,17 +25,47 @@ export class CrearMapaComponent implements AfterViewInit {
   private squareHeight = 24;
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'Image 1', src: '../../facuhdr1.jpeg' },
-    { name: 'Image 2', src: '../../facuhdr2.jpg' },
-    { name: 'Image 3', src: '../../facuhdr3.jpg' },
+    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
+    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
+    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
+    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
   ];
+
   grid: (Image | null)[][] = [];
+  mapName: string = '';
+  isVisible = false; // Controla la visibilidad del popup
+  mapaPublicado: boolean = false;
+  idMapa?: number;
+  dragging: boolean = false; // Estado de arrastre
+  context: CanvasRenderingContext2D | null = null;
+  activoIndex: number | null = null;
+  isGuardar: boolean = false;
+
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private mapaService: MapaService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id !== null) {
+        this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
+          console.log(mapa);
+          this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
+        });
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
-    const context = canvas.getContext('2d');
+    this.context = canvas.getContext('2d');
 
-    if (context) {
+    if (this.context) {
       const rows = Math.floor(canvas.height / this.squareHeight);
       const cols = Math.floor(canvas.width / this.squareWidth);
 
@@ -40,7 +74,7 @@ export class CrearMapaComponent implements AfterViewInit {
         this.grid[i] = [];
         for (let j = 0; j < cols; j++) {
           this.grid[i][j] = null;
-          context.strokeRect(
+          this.context.strokeRect(
             j * this.squareWidth,
             i * this.squareHeight,
             this.squareWidth,
@@ -49,61 +83,99 @@ export class CrearMapaComponent implements AfterViewInit {
         }
       }
 
-      canvas.addEventListener('click', this.handleCanvasClick.bind(this));
+      // Añadir eventos para arrastrar
+      canvas.addEventListener('mousedown', this.startDrag.bind(this));
+      canvas.addEventListener('mousemove', this.drag.bind(this));
+      canvas.addEventListener('mouseup', this.endDrag.bind(this));
+      canvas.addEventListener('mouseleave', this.endDrag.bind(this)); // Para manejar el caso cuando el cursor sale del canvas
     } else {
       console.error('El contexto 2D no está disponible.');
     }
   }
 
-  handleCanvasClick(event: MouseEvent): void {
-    const canvas = this.canvasRef.nativeElement;
-    const context = canvas.getContext('2d');
-
-    if (context && this.selectedImage) {
+  startDrag(event: MouseEvent): void {
+    if (this.selectedImage) {
+      const canvas = this.canvasRef.nativeElement;
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
 
+      // Calcula la columna y la fila en base a las coordenadas del mouse
       const col = Math.floor(x / this.squareWidth);
       const row = Math.floor(y / this.squareHeight);
 
+      // Dibuja el cuadrado en la posición del clic
+      this.drawSquare(row, col);
+
+      this.dragging = true;
+    }
+  }
+
+  drag(event: MouseEvent): void {
+    if (this.dragging && this.selectedImage && this.context) {
+      const canvas = this.canvasRef.nativeElement;
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // Calcula la columna y la fila en base a las coordenadas del mouse
+      const col = Math.floor(x / this.squareWidth);
+      const row = Math.floor(y / this.squareHeight);
+
+      // Dibuja el cuadrado en el canvas
+      this.drawSquare(row, col);
+    }
+  }
+
+  endDrag(): void {
+    this.dragging = false;
+  }
+
+  drawSquare(row: number, col: number): void {
+    if (this.context && this.selectedImage) {
       const image = new Image();
       image.src = this.selectedImage.src;
       image.onload = () => {
-        context.drawImage(
+        this.context?.drawImage(
           image,
           col * this.squareWidth,
           row * this.squareHeight,
           this.squareWidth,
           this.squareHeight
         );
-        context.strokeRect(
+        this.context?.strokeRect(
           col * this.squareWidth,
           row * this.squareHeight,
           this.squareWidth,
           this.squareHeight
         );
+
         // Actualizar la matriz grid con la imagen seleccionada
         this.grid[row][col] = this.selectedImage;
       };
     }
   }
 
-  selectImage(image: Image): void {
+  selectImage(image: Image, index: number): void {
     this.selectedImage = image;
+    this.activoIndex = index;
   }
 
   exportToJson(): void {
     const json = JSON.stringify(this.grid, null, 2);
-    console.log(json);
-    // Descargar el JSON como un archivo
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'grid.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    const mapaPost: IMapa = {
+      id: -1,
+      name: this.mapName || 'Map',
+      valores: json,
+      photo: 'src',
+      likes: 0,
+      creator: this.tokenStorageService.getUser(),
+      categoria: 'nuevo',
+    };
+    this.mapaService.postMapa(mapaPost).subscribe((id: number) => {
+      this.idMapa = id;
+      this.mapaPublicado = true;
+    });
   }
 
   handleFileInput(event: any): void {
@@ -124,14 +196,12 @@ export class CrearMapaComponent implements AfterViewInit {
 
   loadJsonToCanvas(json: any): void {
     const canvas = this.canvasRef.nativeElement;
-    const context = canvas.getContext('2d');
-
-    if (context) {
+    if (this.context) {
       const rows = Math.floor(canvas.height / this.squareHeight);
       const cols = Math.floor(canvas.width / this.squareWidth);
 
       // Limpiar el canvas
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
 
       // Cargar los datos del JSON en la matriz grid
       this.grid = json;
@@ -143,14 +213,14 @@ export class CrearMapaComponent implements AfterViewInit {
             const img = new Image();
             img.src = image.src;
             img.onload = () => {
-              context.drawImage(
+              this.context?.drawImage(
                 img,
                 colIndex * this.squareWidth,
                 rowIndex * this.squareHeight,
                 this.squareWidth,
                 this.squareHeight
               );
-              context.strokeRect(
+              this.context?.strokeRect(
                 colIndex * this.squareWidth,
                 rowIndex * this.squareHeight,
                 this.squareWidth,
@@ -158,7 +228,7 @@ export class CrearMapaComponent implements AfterViewInit {
               );
             };
           } else {
-            context.strokeRect(
+            this.context?.strokeRect(
               colIndex * this.squareWidth,
               rowIndex * this.squareHeight,
               this.squareWidth,
@@ -170,5 +240,13 @@ export class CrearMapaComponent implements AfterViewInit {
     } else {
       console.error('El contexto 2D no está disponible.');
     }
+  }
+
+  togglePopup() {
+    this.isVisible = !this.isVisible; // Alterna la visibilidad
+  }
+
+  togglePopupGuardado() {
+    this.isGuardar = !this.isGuardar; // Alterna la visibilidad
   }
 }
