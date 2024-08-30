@@ -245,7 +245,10 @@ export class CrearMapaComponent implements AfterViewInit {
   togglePopup() {
     this.isVisible = !this.isVisible; // Alterna la visibilidad
   }
-
+  
+  recargar(){
+    window.location.reload();
+  }
   togglePopupGuardado() {
     this.isGuardar = !this.isGuardar; // Alterna la visibilidad
   }
