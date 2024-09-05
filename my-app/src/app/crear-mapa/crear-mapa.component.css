@@ -16,8 +16,6 @@ canvas {
   background-size: cover;
   filter: saturate(0.9);
 
-
-  
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -25,7 +23,6 @@ canvas {
 .imagenes {
   height: 382px;
   width: 80px;
-
 
   padding: 8px 20px 10px 10px;
 
@@ -38,7 +35,6 @@ canvas {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 
-
   transition: 250ms;
 
   user-select: none; /* Para la mayoría de los navegadores */
@@ -47,9 +43,8 @@ canvas {
   -ms-user-select: none; /* Para Internet Explorer/Edge */
 }
 
-.imagenes:hover{
+.imagenes:hover {
   width: 80px;
-
 }
 
 .todo {
@@ -58,11 +53,10 @@ canvas {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items:flex-start;
-  min-height: 81.6vh;
+  align-items: flex-start;
+  min-height: 82.4vh;
   padding-top: 30px;
   overflow: hidden;
-
 }
 .header {
   background-color: #333;
@@ -122,18 +116,15 @@ canvas {
   border: solid 3px white;
 }
 
-.publicar:hover{
+.publicar:hover {
   color: #96ff69;
   border: 3px solid #96ff69;
 }
 
-
-.tacho:hover{
+.tacho:hover {
   fill: #ff6969;
   border: 3px solid #ff6969;
 }
-
-
 
 img {
   margin: 10px 0px 10px 0px;
@@ -158,13 +149,10 @@ img:hover {
   flex-direction: column;
 }
 
-
-
 ::-webkit-scrollbar {
   width: 10px;
   height: 15px;
   margin-top: 10px;
-
 }
 
 ::-webkit-scrollbar-track {
@@ -185,4 +173,15 @@ img:hover {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
+}
+
+h1.notLoggedIn {
+  color: white;
+  font-family: "Catamaran", sans-serif;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 50px;
+  align-items: center;
+  justify-content: center;
+  margin: 20vh 0 0 0;
 }

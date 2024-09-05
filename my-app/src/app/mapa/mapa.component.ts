@@ -44,16 +44,17 @@ export class MapaComponent {
   }
 
   verMundo(id: number) {
-    if (
-      this.item.creator.username == this.tokenStorageService.getUser().username
-    ) {
-      this.router.navigateByUrl(`/editar-mapa/${id}`);
-    } else {
-      setTimeout(() => {
-        if (!this.borrado) {
+    setTimeout(() => {
+      if (!this.borrado) {
+        if (
+          this.item.creator.username ==
+          this.tokenStorageService.getUser().username
+        ) {
+          this.router.navigateByUrl(`/editar-mapa/${id}`);
+        } else {
           this.router.navigateByUrl(`/ver-mapa/${id}`);
         }
-      }, 30);
-    }
+      }
+    }, 30);
   }
 }

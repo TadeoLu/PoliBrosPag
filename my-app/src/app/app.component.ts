@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   routerInicio() {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('#inicio');
   }
 
   routerPerfil() {

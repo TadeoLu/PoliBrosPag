@@ -166,3 +166,7 @@ body {
   border-right: 10px solid transparent;
   border-bottom: 10px solid white;
 }
+
+.borrar {
+  z-index: 1000;
+}

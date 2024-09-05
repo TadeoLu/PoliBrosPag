@@ -1,3 +1,4 @@
+@if(loggedIn){
 <div class="main-container">
   <div class="section">
     <div class="section-header">
@@ -26,3 +27,10 @@
     <button (click)="signOut()" class="signout-button">Sign Out</button>
   </div>
 </div>
+} @else {
+<div class="main-container">
+  <h1>Primero debe iniciar sesion</h1>
+  <button class="button" (click)="routerIniciarSesion()">Iniciar Sesion</button>
+  <button class="button" (click)="routerRegistrarse()">Registrarse</button>
+</div>
+}

@@ -1,7 +1,4 @@
 <div class="world-item" (click)="verMundo(item.id)">
-  @if(mostrarBorrar){
-  <i class="fas fa-times" style="size: 500px" (click)="togglePopup()"></i>
-  }
   <img src="{{ item.photo }}" />
   <h3>{{ item.name }}</h3>
   <p>by {{ item.creator.username }}</p>
@@ -21,6 +18,13 @@
 
       {{ item.likes }}</span
     >
+    @if(mostrarBorrar){
+    <i
+      class="fas fa-times borrar"
+      style="size: 500px"
+      (click)="togglePopup()"
+    ></i>
+    }
   </div>
 </div>
 <div [ngStyle]="{ display: isVisible ? 'block' : 'none' }" id="popup">

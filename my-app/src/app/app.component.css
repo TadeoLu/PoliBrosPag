@@ -127,3 +127,6 @@ button:hover {
   display: flex;
   justify-content: space-between;
 }
+.borrar {
+  justify-content: left;
+}

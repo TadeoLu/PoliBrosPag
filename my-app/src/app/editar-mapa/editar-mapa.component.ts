@@ -25,8 +25,8 @@ export class EditarMapaComponent implements AfterViewInit {
   private squareHeight = 24;
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
-    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Image 1', src: '../../bloque.jpg' },
+    { name: 'Image 2', src: '../../bloque_tierra.jpg' },
     { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
     { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
     { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
@@ -41,6 +41,7 @@ export class EditarMapaComponent implements AfterViewInit {
   dragging: boolean = false; // Estado de arrastre
   context: CanvasRenderingContext2D | null = null;
   activoIndex: number | null = null;
+  isGomaActivo: boolean = false;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -58,6 +59,40 @@ export class EditarMapaComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  borrarSquare(row: number, col: number): void {
+    if (this.context) {
+      this.context.clearRect(
+        col * this.squareWidth,
+        row * this.squareHeight,
+        this.squareWidth,
+        this.squareHeight
+      );
+
+      // Actualizar la matriz grid con null (sin imagen)
+      this.grid[row][col] = null;
+      this.drawBorders();
+    }
+  }
+  drawBorders(): void {
+    const canvas = this.canvasRef.nativeElement;
+    if (this.context) {
+      const rows = Math.floor(canvas.height / this.squareHeight);
+      const cols = Math.floor(canvas.width / this.squareWidth);
+
+      // Redibujar los bordes de todos los cuadrados
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          this.context.strokeRect(
+            col * this.squareWidth,
+            row * this.squareHeight,
+            this.squareWidth,
+            this.squareHeight
+          );
+        }
+      }
+    }
   }
 
   ngAfterViewInit(): void {
@@ -93,7 +128,7 @@ export class EditarMapaComponent implements AfterViewInit {
   }
 
   startDrag(event: MouseEvent): void {
-    if (this.selectedImage) {
+    if (this.isGomaActivo) {
       const canvas = this.canvasRef.nativeElement;
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -103,15 +138,11 @@ export class EditarMapaComponent implements AfterViewInit {
       const col = Math.floor(x / this.squareWidth);
       const row = Math.floor(y / this.squareHeight);
 
-      // Dibuja el cuadrado en la posición del clic
-      this.drawSquare(row, col);
+      // Borra el cuadrado en la posición del clic
+      this.borrarSquare(row, col);
 
       this.dragging = true;
-    }
-  }
-
-  drag(event: MouseEvent): void {
-    if (this.dragging && this.selectedImage && this.context) {
+    } else if (this.selectedImage) {
       const canvas = this.canvasRef.nativeElement;
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -123,6 +154,38 @@ export class EditarMapaComponent implements AfterViewInit {
 
       // Dibuja el cuadrado en el canvas
       this.drawSquare(row, col);
+
+      this.dragging = true;
+    }
+  }
+
+  drag(event: MouseEvent): void {
+    if (this.dragging) {
+      if (this.isGomaActivo) {
+        const canvas = this.canvasRef.nativeElement;
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        // Calcula la columna y la fila en base a las coordenadas del mouse
+        const col = Math.floor(x / this.squareWidth);
+        const row = Math.floor(y / this.squareHeight);
+
+        // Borra el cuadrado en el canvas
+        this.borrarSquare(row, col);
+      } else if (this.selectedImage && this.context) {
+        const canvas = this.canvasRef.nativeElement;
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        // Calcula la columna y la fila en base a las coordenadas del mouse
+        const col = Math.floor(x / this.squareWidth);
+        const row = Math.floor(y / this.squareHeight);
+
+        // Dibuja el cuadrado en el canvas
+        this.drawSquare(row, col);
+      }
     }
   }
 
@@ -158,6 +221,12 @@ export class EditarMapaComponent implements AfterViewInit {
   selectImage(image: Image, index: number): void {
     this.selectedImage = image;
     this.activoIndex = index;
+    this.isGomaActivo = false; // Desactivar goma al seleccionar una imagen
+  }
+
+  activarGoma(): void {
+    this.isGomaActivo = true; // Activar goma
+    this.selectedImage = null; // Desactivar selección de imagen
   }
 
   handleFileInput(event: any): void {
@@ -230,6 +299,10 @@ export class EditarMapaComponent implements AfterViewInit {
       this.mapa.valores = json;
       this.mapaService.updateMapa(this.mapa).subscribe();
     }
+  }
+
+  recargar() {
+    window.location.reload();
   }
 
   togglePopup() {

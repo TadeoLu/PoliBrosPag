@@ -16,6 +16,7 @@ import { MapaService } from '../mapa/mapa.service';
 export class PerfilComponent {
   mapasGuardados: IMapa[] = [];
   mapasCreados: IMapa[] = [];
+  loggedIn: boolean = false;
 
   constructor(
     private router: Router,
@@ -24,6 +25,7 @@ export class PerfilComponent {
   ) {}
 
   ngOnInit() {
+    this.loggedIn = this.tokenStorageService.isLoggedIn();
     this.mapaService
       .getMapaFromCreator(this.tokenStorageService.getUser())
       .subscribe((data) => {
@@ -41,5 +43,13 @@ export class PerfilComponent {
 
   routerCrearMapa() {
     this.router.navigate(['crear-mapa']);
+  }
+
+  routerIniciarSesion() {
+    this.router.navigate(['inicio-sesion']);
+  }
+
+  routerRegistrarse() {
+    this.router.navigate(['registro ']);
   }
 }
