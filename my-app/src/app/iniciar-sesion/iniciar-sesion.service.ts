@@ -46,4 +46,8 @@ export class IniciarSesionService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  routerRegistro(){
+    
+  }
 }

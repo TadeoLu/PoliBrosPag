@@ -10,8 +10,7 @@
       </h3>
       <div class="sesion">
         @if(!loggedIn){
-        <a (click)="routerLogIn()" class="button">Iniciar Sesion</a>
-        <a (click)="routerSingUp()" class="button">Registrarse</a>
+          <a (click)="routerLogIn()" class="button">Crear Mapa</a>
         }@else{
         <a (click)="routerCrearMapa()" class="button">Crear Mapa</a>
         }
