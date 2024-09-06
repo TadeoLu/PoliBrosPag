@@ -1,10 +1,12 @@
 import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
+import { IUser } from '../../models/User';
+import User from '../../models/User';
 
 interface Image {
   name: string;
@@ -42,11 +44,13 @@ export class EditarMapaComponent implements AfterViewInit {
   context: CanvasRenderingContext2D | null = null;
   activoIndex: number | null = null;
   isGomaActivo: boolean = false;
+  puedeEditar: boolean = true;
 
   constructor(
     private tokenStorageService: TokenStorageService,
     private mapaService: MapaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,11 +58,20 @@ export class EditarMapaComponent implements AfterViewInit {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
+          this.puedeEditar = this.isCreator(mapa.creator);
           this.mapa = mapa;
+          console.log(mapa);
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
         });
       }
     });
+  }
+
+  isCreator(creator: IUser): boolean {
+    creator.password = "a";
+    console.log(this.tokenStorageService.getUser());
+    console.log(creator);
+    return User.isEqual(this.tokenStorageService.getUser(),creator);
   }
 
   borrarSquare(row: number, col: number): void {
@@ -308,5 +321,13 @@ export class EditarMapaComponent implements AfterViewInit {
   togglePopup() {
     this.isVisible = !this.isVisible; // Alterna la visibilidad
     this.guardar();
+  }
+
+  routerIniciarSesion() {
+    this.router.navigate(['inicio-sesion']);
+  }
+
+  routerRegistrarse() {
+    this.router.navigate(['registro']);
   }
 }

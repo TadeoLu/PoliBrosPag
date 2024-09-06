@@ -45,7 +45,7 @@ export class CrearMapaComponent implements AfterViewInit {
   activoIndex: number | null = null;
   isGuardar: boolean = false;
   isGomaActivo: boolean = false; // Estado de la goma
-  loggedIn: boolean = false;
+  loggedIn: boolean = true;
 
   constructor(
     private tokenStorageService: TokenStorageService,
