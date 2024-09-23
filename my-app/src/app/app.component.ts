@@ -41,7 +41,37 @@ export class AppComponent implements OnInit {
           const element = document.getElementById(fragment);
           if (element) {
             setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth' });
+              const offset = 90; // Ajusta esta altura según necesites
+              const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+              const offsetPosition = elementPosition - offset;
+    
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth' // Para un desplazamiento suave
+              });
+            }, 70);
+          }
+        }
+      });
+    });
+  }
+
+  irNosotros() {
+    this.router.navigateByUrl('/inicio#nosotros').then(() => {
+      this.route.fragment.subscribe((fragment) => {
+        if (fragment) {
+          // Aquí puedes manejar el fragmento, por ejemplo, hacer scroll hacia el elemento
+          const element = document.getElementById(fragment);
+          if (element) {
+            setTimeout(() => {
+              const offset = 100; // Ajusta esta altura según necesites
+              const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+              const offsetPosition = elementPosition - offset;
+    
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth' // Para un desplazamiento suave
+              });
             }, 70);
           }
         }

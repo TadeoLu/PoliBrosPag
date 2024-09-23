@@ -86,10 +86,9 @@ export class MapaService {
       .pipe(catchError(this.handleError));
   }
 
-  addVisita(mapa: IMapa): Observable<IMapa> {
-    const body = { mapa: mapa };
+  addVisita(id: number): Observable<IMapa> {
     return this.http
-      .put<IMapa>(`${this.baseUrl}/api/mapas/visita`, body, {
+      .put<IMapa>(`${this.baseUrl}/api/mapas/visita/${id}`, {
         headers: this.tokenStorageService.header(),
       })
       .pipe(catchError(this.handleError));

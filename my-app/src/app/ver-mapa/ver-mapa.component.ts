@@ -32,6 +32,7 @@ export class VerMapaComponent {
   grid: (Image | null)[][] = [];
   mapName: string = '';
   creator!: string;
+  id!: number;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -44,10 +45,10 @@ export class VerMapaComponent {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
+          this.id = mapa.id;
           this.mapName = mapa.name;
           this.creator = mapa.creator.username;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
-          this.mapaService.addVisita(mapa).subscribe();
         });
       }
     });

@@ -10,11 +10,20 @@
   font-style: normal;
 }
 
+.info-creator{
+  display: flex;
+  justify-content: space-between;
+  width: 768px;
+}
+
+.info-creator.right{
+  display: inline;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 368px;
 }
 
 canvas {
@@ -26,6 +35,7 @@ canvas {
   background-size: cover;
   filter: blur(0.5px);
   filter: brightness(1.3);
+  margin-bottom: 50px;
 }
 
 .todo {
@@ -35,7 +45,7 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-height: 87vh;
+  min-height: 87vh;
 }
 .header {
   background-color: #333;

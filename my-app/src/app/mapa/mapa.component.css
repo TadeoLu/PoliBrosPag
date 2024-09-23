@@ -127,7 +127,7 @@ body {
 }
 
 .world-item img {
-  background-image: url("../../../public/nohay.png");
+  background-image: url("../../../public/fondo.png");
   background-size: cover;
   background-position: center;
   height: 175px;

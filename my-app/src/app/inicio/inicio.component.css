@@ -33,9 +33,10 @@ h3 {
   flex-direction: column;
   background-image: url("../../../public/pondi.png"),
     linear-gradient(180deg, #0165e7 16%, #9717ff 76%);
-
+  color: white;
   overflow: hidden;
   height: 1000px;
+  padding-top: 35vh;
 }
 
 .sesion {

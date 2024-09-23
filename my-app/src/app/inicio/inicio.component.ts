@@ -6,6 +6,7 @@ import { IMapa } from '../../models/Mapa';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'inicio-root',
@@ -37,8 +38,9 @@ export class InicioComponent implements OnInit {
   filtrarMapas(categoria: string) {
     if (categoria === 'popular') {
       this.filteredMapas = this.mapas.filter(
-        (mapa) => mapa.categoria === 'popular'
+        (mapa) => mapa.likes > 20
       );
+      this.filteredMapas.sort((a, b) => b.likes - a.likes);
     } else if (categoria === 'nuevo') {
       this.filteredMapas = this.mapas.filter(
         (mapa) => mapa.categoria === 'nuevo'

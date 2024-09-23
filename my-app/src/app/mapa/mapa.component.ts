@@ -46,6 +46,7 @@ export class MapaComponent {
   verMundo(id: number) {
     setTimeout(() => {
       if (!this.borrado) {
+        this.mapaService.addVisita(id).subscribe();
         if (
           this.item.creator.username ==
           this.tokenStorageService.getUser().username

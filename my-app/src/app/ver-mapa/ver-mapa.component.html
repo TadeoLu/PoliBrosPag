@@ -1,9 +1,12 @@
 <div class="todo">
-  <div>
+  <div class="info-creator">
     <h1 for="mapName" style="margin-right: 10px">
       {{ mapName }}
     </h1>
-    <h2>by {{ creator }}</h2>
+    <div class="right">
+      <h2>by {{ creator }}</h2>
+      <h2>codigo: {{ id }}</h2>
+    </div>
   </div>
   <div class="container">
     <canvas
@@ -12,8 +15,5 @@
       width="768"
       height="384"
     ></canvas>
-  </div>
-  <div class="container">
-    <div style="display: inline-block; margin-right: 20px"></div>
   </div>
 </div>

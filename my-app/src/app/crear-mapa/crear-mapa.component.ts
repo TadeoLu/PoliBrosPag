@@ -237,11 +237,13 @@ export class CrearMapaComponent implements AfterViewInit {
 
   exportToJson(): void {
     const json = JSON.stringify(this.grid, null, 2);
+    const canvas = this.canvasRef.nativeElement;
+    const dataURL: string = canvas.toDataURL('image/png');
     const mapaPost: IMapa = {
       id: -1,
       name: this.mapName || 'Map',
       valores: json,
-      photo: 'src',
+      photo: dataURL,
       likes: 0,
       creator: this.tokenStorageService.getUser(),
       categoria: 'nuevo',

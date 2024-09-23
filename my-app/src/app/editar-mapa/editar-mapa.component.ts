@@ -308,8 +308,11 @@ export class EditarMapaComponent implements AfterViewInit {
 
   guardar() {
     const json = JSON.stringify(this.grid, null, 2);
+    const canvas = this.canvasRef.nativeElement;
+    const dataURL = canvas.toDataURL();
     if (this.mapa) {
       this.mapa.valores = json;
+      this.mapa.photo = dataURL;
       this.mapaService.updateMapa(this.mapa).subscribe();
     }
   }
