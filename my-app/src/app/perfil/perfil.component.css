@@ -26,11 +26,16 @@
   background-color: #c82333; /* Color más oscuro al pasar el ratón */
 }
 
+
+
 .mismapas-container {
-  background-color: white;
+  background-color:#101010c5;
   min-height: 12vh;
   width: 750px;
   padding: 20px;
+  border-radius: 0px 0px 10px 10px;
+  border: white 3px solid;
+  border-top: transparent ;
 }
 
 .mapasguardados-container {
@@ -41,19 +46,23 @@
 }
 
 .section {
-  background-color: #343a40;
   color: white;
   padding: 20px;
   min-width: 750.5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color:#1f1f1f;
+  border-radius: 10px 10px 0px 0px;
+  border: white 3px solid;
+  border-bottom: transparent ;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  
 }
 
 .create-button {

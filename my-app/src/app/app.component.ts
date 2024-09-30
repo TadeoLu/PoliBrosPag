@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
           const element = document.getElementById(fragment);
           if (element) {
             setTimeout(() => {
-              const offset = 100; // Ajusta esta altura según necesites
+              const offset = 170; // Ajusta esta altura según necesites
               const elementPosition = element.getBoundingClientRect().top + window.scrollY;
               const offsetPosition = elementPosition - offset;
     

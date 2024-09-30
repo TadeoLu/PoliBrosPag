@@ -69,6 +69,8 @@ body {
   justify-content: center;
 }
 .world-item {
+  user-select: none;
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;

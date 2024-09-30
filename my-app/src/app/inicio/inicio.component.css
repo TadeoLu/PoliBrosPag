@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
-
 @font-face {
   font-family: "super_mario_256regular";
   src: url("../../../public/webfontkit-20240815-141056/supermario256.woff")
@@ -21,6 +20,7 @@ h3 {
 }
 
 .uno {
+  user-select: none;
   display: flex;
   flex-direction: column;
   background-image: url("../../../public/pondi.png"),
@@ -29,14 +29,16 @@ h3 {
 }
 
 .dos {
+  user-select: none;
+
   display: flex;
   flex-direction: column;
   background-image: url("../../../public/pondi.png"),
     linear-gradient(180deg, #0165e7 16%, #9717ff 76%);
   color: white;
   overflow: hidden;
-  height: 1000px;
   padding-top: 35vh;
+  padding-bottom: 10vh;
 }
 
 .sesion {
@@ -286,4 +288,264 @@ body {
   to {
     transform: translateY(0) translateX(-75px); /* Se mueve a la posición original */
   }
+}
+
+.nosotros{
+  width:auto;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.nosotros-grid{
+  width:auto;
+  display: flex;
+  flex-direction: row;
+  scroll-snap-type: x mandatory;
+}
+
+
+.persona{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 1000;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 350px;
+  height: 450px;
+  margin-top: 0px;
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  border: 5px solid transparent;
+  transition: 100ms;
+}
+.persona-container {
+  position: relative;
+  width: 100%;
+  border-radius: 20px 20px 10px 10px; 
+  margin: -25px;
+  overflow: hidden; /* Asegura que el degradado no sobresalga */
+}
+
+.persona-imagen {
+  width: 100%;
+  border-radius: 20px 20px 10px 10px; 
+  transition: 1250ms;
+  filter: brightness(1);
+}
+
+.persona-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* O ajusta según necesites */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+}
+.persona h3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 900;
+}
+
+
+
+
+.persona p{
+  margin-top: -10px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+  
+
+.persona:hover .persona-imagen{
+  scale: 1.05;
+  filter: brightness(1.2);
+}
+
+.persona:hover h3{
+}
+
+.jungla{
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.dos h1{
+  color: white;
+  font-family: "Catamaran", sans-serif;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tadeo{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #0095cf,
+    #0095cf 6px,
+    #00a9ec 0,
+    #00a9ec 12px
+  );
+  border: 5px solid #00a9ec;
+}
+.tadeo:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #00a9ec,
+    #00a9ec 6px,
+    #00c4ff 0,
+    #00c4ff 12px
+  );
+  border: 5px solid #00c4ff;
+  box-shadow: 0px 0px 10px #00c4ff;
+}
+.tadeo:hover h3{
+  text-shadow: 0px 0px 10px #006488;
+
+}
+.tadeo:hover .persona-imagen{
+  scale:2.75;
+  transition: 5000ms;
+}
+
+.pulvi{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #cf6400,
+    #cf6400 6px,
+    #df6c00 0,
+    #df6c00 12px
+  );
+  border: 5px solid #df6c00;
+}
+.pulvi:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #df6c00,
+    #df6c00 6px,
+    #ff7b00 0,
+    #ff7b00 12px
+  );
+  border: 5px solid #ff7b00;
+  box-shadow: 0px 0px 10px #ff7b00;
+}
+.pulvi:hover h3{
+  text-shadow: 0px 0px 10px #b45700;
+}
+
+.salas{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #b4003c,
+    #b4003c 6px,
+    #ca0043 0,
+    #ca0043 12px
+  );
+  border: 5px solid #ca0043;  
+}
+.salas:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #ca0043,
+    #ca0043 6px,
+    #ff0054 0,
+    #ff0054 12px
+  );
+  border: 5px solid #ff0054;
+  box-shadow: 0px 0px 10px #ff0054;
+}
+.salas:hover h3{
+  text-shadow: 0px 0px 10px #7e002a;
+}
+
+.maco{ 
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #008500,
+    #008500 6px,
+    #009e00 0,
+    #009e00 12px
+  );
+  border: 5px solid #009e00;
+}
+.maco:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #009e00,
+    #009e00 6px,
+    #00b800 0,
+    #00b800 12px
+  );
+  border: 5px solid #00b800;
+  box-shadow: 0px 0px 10px #00b800;
+}
+.maco:hover h3{
+  text-shadow: 0px 0px 10px #005f00;
+}
+
+.nanu{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #7d009c,
+    #7d009c 6px,
+    #9700bd 0,
+    #9700bd 12px
+  );
+  border: 5px solid #9700bd;
+}
+.nanu:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #9700bd,
+    #9700bd 6px,
+    #b800ff 0,
+    #b800ff 12px
+  );
+  border: 5px solid #b800ff;
+  box-shadow: 0px 0px 10px #b800ff;
+}
+.nanu:hover h3{
+  text-shadow: 0px 0px 10px #540075;
+}
+
+.neck{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #cf00cf,
+    #cf00cf 6px,
+    #f800f8 0,
+    #f800f8 12px
+  );
+  border: 5px solid #f800f8;
+}
+.neck:hover{
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #cf00cf,
+    #cf00cf 6px,
+    #ff00ff 0,
+    #ff00ff 12px
+  );
+  border: 5px solid #ff00ff;
+  box-shadow: 0px 0px 10px #ff00ff;
+}
+.neck:hover h3{
+  text-shadow: 0px 0px 10px #8d008d;
 }
