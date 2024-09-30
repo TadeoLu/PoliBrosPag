@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapaComponent } from '../mapa/mapa.component';
 import { NgFor } from '@angular/common';
