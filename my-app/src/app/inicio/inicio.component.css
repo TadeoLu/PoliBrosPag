@@ -372,7 +372,7 @@ body {
   
 
 .persona:hover .persona-imagen{
-  scale: 1.05;
+  scale: 2;
   filter: brightness(1.2);
 }
 
