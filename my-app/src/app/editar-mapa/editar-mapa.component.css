@@ -10,7 +10,7 @@ button {
 
 canvas {
   border: 8px solid #131313;
-  border-radius: 10px;
+  border-radius: 10px 10px 10px 0px;
   background-image: url(../../../public/fondo.png);
   background-color: white;
   background-size: cover;
@@ -21,7 +21,7 @@ canvas {
 }
 
 .imagenes {
-  height: 382px;
+  height: 461px;
   width: 80px;
 
   padding: 8px 20px 10px 10px;
@@ -116,6 +116,11 @@ canvas {
   border: solid 3px white;
 }
 
+.publicar{
+  margin-left: 10px;
+
+}
+
 .publicar:hover {
   color: #96ff69;
   border: 3px solid #96ff69;
@@ -184,4 +189,19 @@ h1.notLoggedIn {
   align-items: center;
   justify-content: center;
   margin: 20vh 0 0 0;
+}
+.savana{
+  background-color: #131313;
+  margin-top: -4px ;
+  border-radius: 0 0 0px 10px;
+  padding: 0;
+}
+
+.savana h2{
+  color: white;
+  font-family:  "Catamaran", sans-serif;
+  font-weight: 800;
+  margin-left: 30px;
+  margin-top: 10px;
+  user-select: none;
 }

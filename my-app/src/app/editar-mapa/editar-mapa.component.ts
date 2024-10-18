@@ -32,8 +32,10 @@ export class EditarMapaComponent implements AfterViewInit {
     { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
     { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
     { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
-    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
+    { name: 'Image 0', src: '/barrio.jpg' },
+    { name: 'Image -1', src: '/bandera.png' },
   ];
+  imagenesEspeciales: Map<string, boolean> = new Map<string, boolean>();
 
   grid: (Image | null)[][] = [];
   mapName: string = '';
@@ -54,13 +56,14 @@ export class EditarMapaComponent implements AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    this.imagenesEspeciales.set('Image 0', true);
+    this.imagenesEspeciales.set('Image -1', true);
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
           this.puedeEditar = this.isCreator(mapa.creator);
           this.mapa = mapa;
-          console.log(mapa);
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
         });
       }
@@ -69,8 +72,6 @@ export class EditarMapaComponent implements AfterViewInit {
 
   isCreator(creator: IUser): boolean {
     creator.password = "a";
-    console.log(this.tokenStorageService.getUser());
-    console.log(creator);
     return User.isEqual(this.tokenStorageService.getUser(),creator);
   }
 
@@ -84,6 +85,9 @@ export class EditarMapaComponent implements AfterViewInit {
       );
 
       // Actualizar la matriz grid con null (sin imagen)
+      if(this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)){
+        this.imagenesEspeciales.set(this.grid[row][col]!.name, false);
+      }
       this.grid[row][col] = null;
       this.drawBorders();
     }
@@ -209,6 +213,12 @@ export class EditarMapaComponent implements AfterViewInit {
   drawSquare(row: number, col: number): void {
     if (this.context && this.selectedImage) {
       const image = new Image();
+      if(this.isEspecialImagen(this.selectedImage) && this.hasPlaceEspecialImagen(this.selectedImage)){
+        alert('No puedes colocar más de una imagen especial');
+        return;
+      }else if(this.isEspecialImagen(this.selectedImage)){
+        this.imagenesEspeciales.set(this.selectedImage.name, true);
+      }
       image.src = this.selectedImage.src;
       image.onload = () => {
         this.context?.drawImage(
@@ -230,6 +240,15 @@ export class EditarMapaComponent implements AfterViewInit {
       };
     }
   }
+
+  isEspecialImagen(image: Image): boolean {
+    return this.imagenesEspeciales.has(image.name);
+  }
+
+  hasPlaceEspecialImagen(image: Image): boolean {
+    return this.imagenesEspeciales.get(image.name) || false;
+  }
+
 
   selectImage(image: Image, index: number): void {
     this.selectedImage = image;
@@ -307,14 +326,25 @@ export class EditarMapaComponent implements AfterViewInit {
   }
 
   guardar() {
+    if(!this.allEspecialImagesPlaced()){
+      alert('Debes colocar todas las imágenes especiales');
+      return;
+    }
     const json = JSON.stringify(this.grid, null, 2);
     const canvas = this.canvasRef.nativeElement;
     const dataURL = canvas.toDataURL();
     if (this.mapa) {
       this.mapa.valores = json;
       this.mapa.photo = dataURL;
-      this.mapaService.updateMapa(this.mapa).subscribe();
+      this.mapaService.updateMapa(this.mapa).subscribe(() => {
+        this.togglePopup();
+      });
     }
+  }
+
+  allEspecialImagesPlaced(): boolean {
+    console.log(this.imagenesEspeciales);
+    return Array.from(this.imagenesEspeciales.values()).every((value) => value);
   }
 
   recargar() {
@@ -323,7 +353,6 @@ export class EditarMapaComponent implements AfterViewInit {
 
   togglePopup() {
     this.isVisible = !this.isVisible; // Alterna la visibilidad
-    this.guardar();
   }
 
   routerIniciarSesion() {
