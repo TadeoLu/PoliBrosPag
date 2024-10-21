@@ -11,7 +11,6 @@ interface Image {
   src: string;
 }
 
-
 @Component({
   selector: 'app-crear-mapa',
   standalone: true,
@@ -28,14 +27,17 @@ export class CrearMapaComponent implements AfterViewInit {
 
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'Image 1', src: '../../bloque.jpg' },
-    { name: 'Image 2', src: '../../bloque_tierra.jpg' },
+    { name: 'TierraPasto', src: '../../bloque.jpg' },
+    { name: 'Tierra', src: '../../bloque_tierra.jpg' },
     { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
     { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
-    { name: 'Image 2', src: '../../Captura desde 2024-08-29 13-48-53.png' },
-    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
-    { name: 'Image 0', src: '/barrio.jpg' },
-    { name: 'Image -1', src: '/bandera.png' },
+    { name: 'EnemyWalker', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    {
+      name: 'EnemyShooter',
+      src: '../../Captura desde 2024-08-29 13-49-33.png',
+    },
+    { name: 'Gonza', src: '/barrio.jpg' },
+    { name: 'Finish', src: '/bandera.png' },
   ];
   imagenesEspeciales: Map<string, boolean> = new Map<string, boolean>();
 
@@ -59,8 +61,8 @@ export class CrearMapaComponent implements AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.imagenesEspeciales.set('Image 0', false);
-    this.imagenesEspeciales.set('Image -1', false);
+    this.imagenesEspeciales.set('Gonza', false);
+    this.imagenesEspeciales.set('Finish', false);
     this.loggedIn = this.tokenStorageService.isLoggedIn();
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
@@ -173,14 +175,17 @@ export class CrearMapaComponent implements AfterViewInit {
 
   drawSquare(row: number, col: number): void {
     if (this.context && this.selectedImage) {
-      if(this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)){
+      if (this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)) {
         this.imagenesEspeciales.set(this.grid[row][col]!.name, false);
-      } 
+      }
       const image = new Image();
-      if(this.isEspecialImagen(this.selectedImage) && this.hasPlaceEspecialImagen(this.selectedImage)){
+      if (
+        this.isEspecialImagen(this.selectedImage) &&
+        this.hasPlaceEspecialImagen(this.selectedImage)
+      ) {
         alert('No puedes colocar más de una imagen especial');
         return;
-      }else if(this.isEspecialImagen(this.selectedImage)){
+      } else if (this.isEspecialImagen(this.selectedImage)) {
         this.imagenesEspeciales.set(this.selectedImage.name, true);
       }
       image.src = this.selectedImage.src;
@@ -223,9 +228,9 @@ export class CrearMapaComponent implements AfterViewInit {
       );
 
       // Actualizar la matriz grid con null (sin imagen)
-      if(this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)){
+      if (this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)) {
         this.imagenesEspeciales.set(this.grid[row][col]!.name, false);
-      } 
+      }
       this.grid[row][col] = null;
       this.drawBorders();
     }
@@ -262,12 +267,18 @@ export class CrearMapaComponent implements AfterViewInit {
     this.activoIndex = null; // Desactivar el borde css
   }
 
+  limitarFilas(matriz: any[][], maxElementos: number = 32): any[][] {
+    return matriz.map((fila) => fila.slice(0, maxElementos));
+  }
+
   exportToJson(): void {
-    if(!this.allEspecialImagesPlaced()){
+    if (!this.allEspecialImagesPlaced()) {
       alert('Debes colocar todas las imágenes especiales');
       return;
     }
+    this.grid = this.limitarFilas(this.grid);
     const json = JSON.stringify(this.grid, null, 2);
+
     const canvas = this.canvasRef.nativeElement;
     const dataURL: string = canvas.toDataURL('image/png');
     const mapaPost: IMapa = {
