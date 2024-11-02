@@ -7,6 +7,7 @@ import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
 import { IUser } from '../../models/User';
 import User from '../../models/User';
+import { ClipboardService } from '../clipboard.service';
 
 interface Image {
   name: string;
@@ -27,16 +28,24 @@ export class EditarMapaComponent implements AfterViewInit {
   private squareHeight = 24;
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'TierraPasto', src: '../../bloque.jpg' },
-    { name: 'Tierra', src: '../../bloque_tierra.jpg' },
-    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
-    { name: 'EnemyWalker', src: '../../Captura desde 2024-08-29 13-48-46.png' },
+    { name: 'Gonza', src: '../../denudo.png' },
+    { name: 'Finish', src: '/bandera.png' },
+    { name: 'EnemyWalker', src: '../../fantasma.png' },
     {
       name: 'EnemyShooter',
-      src: '../../Captura desde 2024-08-29 13-48-53.png',
+      src: '../../gonza1.png',
     },
-    { name: 'Gonza', src: '/barrio.jpg' },
-    { name: 'Finish', src: '/bandera.png' },
+    { name: 'TierraPasto', src: '../../bloque.jpg' },
+    { name: 'Tierra', src: '../../bloque_tierra.jpg' },
+    { name: 'Arena', src: '../../arena2.png' },
+    { name: 'Ladrillo', src: '../../ladrillo 1.png' },
+    { name: 'MaderaClara', src: '../../madera1_fixed.png' },
+    { name: 'MaderaOscura', src: '../../madera2_fixed.png' },
+    { name: 'Salas', src: '../../negro_fixed.png' },
+    { name: 'PiedraFea', src: '../../piedra1_fixed.png' },
+    { name: 'PiedraLinda', src: '../../piedra2_fixed.png' },
+    { name: 'PisoCity', src: '../../piso city.jpg' },
+    { name: 'Ventana', src: '../../ventana.png' },
   ];
   imagenesEspeciales: Map<string, boolean> = new Map<string, boolean>();
 
@@ -55,7 +64,8 @@ export class EditarMapaComponent implements AfterViewInit {
     private tokenStorageService: TokenStorageService,
     private mapaService: MapaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -217,6 +227,7 @@ export class EditarMapaComponent implements AfterViewInit {
     if (this.context && this.selectedImage) {
       if (this.grid[row][col] && this.isEspecialImagen(this.grid[row][col]!)) {
         this.imagenesEspeciales.set(this.grid[row][col]!.name, false);
+        this.borrarSquare(row, col);
       }
 
       const image = new Image();
@@ -350,6 +361,7 @@ export class EditarMapaComponent implements AfterViewInit {
     if (this.mapa) {
       this.mapa.valores = json;
       this.mapa.photo = dataURL;
+      this.copyText(String(this.mapa.id));
       this.mapaService.updateMapa(this.mapa).subscribe(() => {
         this.togglePopup();
       });
@@ -375,5 +387,8 @@ export class EditarMapaComponent implements AfterViewInit {
 
   routerRegistrarse() {
     this.router.navigate(['registro']);
+  }
+  copyText(text: string): void {
+    this.clipboardService.copy(text);
   }
 }

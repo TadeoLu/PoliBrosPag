@@ -5,6 +5,7 @@ import { IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
+import { ClipboardService } from '../clipboard.service';
 
 interface Image {
   name: string;
@@ -27,17 +28,24 @@ export class CrearMapaComponent implements AfterViewInit {
 
   selectedImage: Image | null = null;
   images: Image[] = [
-    { name: 'TierraPasto', src: '../../bloque.jpg' },
-    { name: 'Tierra', src: '../../bloque_tierra.jpg' },
-    { name: 'Image 3', src: '../../Captura desde 2024-08-29 13-49-33.png' },
-    { name: 'Image 1', src: '../../Captura desde 2024-08-29 13-48-46.png' },
-    { name: 'EnemyWalker', src: '../../Captura desde 2024-08-29 13-48-53.png' },
+    { name: 'Gonza', src: '../../denudo.png' },
+    { name: 'Finish', src: '/bandera.png' },
+    { name: 'EnemyWalker', src: '../../fantasma.png' },
     {
       name: 'EnemyShooter',
-      src: '../../Captura desde 2024-08-29 13-49-33.png',
+      src: '../../gonza1.png',
     },
-    { name: 'Gonza', src: '/barrio.jpg' },
-    { name: 'Finish', src: '/bandera.png' },
+    { name: 'TierraPasto', src: '../../bloque.jpg' },
+    { name: 'Tierra', src: '../../bloque_tierra.jpg' },
+    { name: 'Arena', src: '../../arena2.png' },
+    { name: 'Ladrillo', src: '../../ladrillo 1.png' },
+    { name: 'MaderaClara', src: '../../madera1_fixed.png' },
+    { name: 'MaderaOscura', src: '../../madera2_fixed.png' },
+    { name: 'Salas', src: '../../negro_fixed.png' },
+    { name: 'PiedraFea', src: '../../piedra1_fixed.png' },
+    { name: 'PiedraLinda', src: '../../piedra2_fixed.png' },
+    { name: 'PisoCity', src: '../../piso city.jpg' },
+    { name: 'Ventana', src: '../../ventana.png' },
   ];
   imagenesEspeciales: Map<string, boolean> = new Map<string, boolean>();
 
@@ -57,7 +65,8 @@ export class CrearMapaComponent implements AfterViewInit {
     private tokenStorageService: TokenStorageService,
     private mapaService: MapaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private clipboardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -292,6 +301,7 @@ export class CrearMapaComponent implements AfterViewInit {
     };
     this.mapaService.postMapa(mapaPost).subscribe((id: number) => {
       this.idMapa = id;
+      this.copyText(String(id));
       this.mapaPublicado = true;
     });
   }
@@ -376,5 +386,9 @@ export class CrearMapaComponent implements AfterViewInit {
 
   routerRegistrarse() {
     this.router.navigate(['registro']);
+  }
+
+  copyText(text: string): void {
+    this.clipboardService.copy(text);
   }
 }

@@ -79,6 +79,7 @@ canvas {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: absolute;
+  left: 35%;
 }
 
 #popup::before {
@@ -116,9 +117,8 @@ canvas {
   border: solid 3px white;
 }
 
-.publicar{
+.publicar {
   margin-left: 10px;
-
 }
 
 .publicar:hover {
@@ -190,16 +190,16 @@ h1.notLoggedIn {
   justify-content: center;
   margin: 20vh 0 0 0;
 }
-.savana{
+.savana {
   background-color: #131313;
-  margin-top: -4px ;
+  margin-top: -4px;
   border-radius: 0 0 0px 10px;
   padding: 0;
 }
 
-.savana h2{
+.savana h2 {
   color: white;
-  font-family:  "Catamaran", sans-serif;
+  font-family: "Catamaran", sans-serif;
   font-weight: 800;
   margin-left: 30px;
   margin-top: 10px;

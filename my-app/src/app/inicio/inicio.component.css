@@ -24,7 +24,7 @@ h3 {
   display: flex;
   flex-direction: column;
   background-image: url("../../../public/pondi.png"),
-    linear-gradient(180deg, #ff0000 16%, #c50435 76%);
+    linear-gradient(180deg, #9717ff 16%, #0165e7 76%);
   overflow: hidden;
 }
 
@@ -290,24 +290,23 @@ body {
   }
 }
 
-.nosotros{
-  width:auto;
+.nosotros {
+  width: auto;
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;;
+  overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
 
-.nosotros-grid{
-  width:auto;
+.nosotros-grid {
+  width: auto;
   display: flex;
   flex-direction: row;
   scroll-snap-type: x mandatory;
 }
 
-
-.persona{
+.persona {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -332,60 +331,59 @@ body {
 .persona-container {
   position: relative;
   width: 100%;
-  border-radius: 20px 20px 10px 10px; 
+  border-radius: 20px 20px 10px 10px;
   margin: -25px;
   overflow: hidden; /* Asegura que el degradado no sobresalga */
 }
 
 .persona-imagen {
   width: 100%;
-  border-radius: 20px 20px 10px 10px; 
+  border-radius: 20px 20px 10px 10px;
   transition: 1250ms;
   filter: brightness(1);
 }
 
 .persona-container::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 100%; /* O ajusta según necesites */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
-.persona h3{
+.persona h3 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 40px;
   font-weight: 900;
 }
 
-
-
-
-.persona p{
+.persona p {
   margin-top: -10px;
   font-size: 30px;
   font-weight: 600;
 }
 
-  
-
-.persona:hover .persona-imagen{
+.persona:hover .persona-imagen {
   scale: 2;
   filter: brightness(1.2);
 }
 
-.persona:hover h3{
+.persona:hover h3 {
 }
 
-.jungla{
+.jungla {
   width: 100%;
   height: 500px;
   overflow: hidden;
 }
 
-.dos h1{
+.dos h1 {
   color: white;
   font-family: "Catamaran", sans-serif;
   text-align: center;
@@ -395,7 +393,7 @@ body {
   justify-content: center;
 }
 
-.tadeo{
+.tadeo {
   background-image: repeating-linear-gradient(
     -45deg,
     #0095cf,
@@ -405,7 +403,7 @@ body {
   );
   border: 5px solid #00a9ec;
 }
-.tadeo:hover{
+.tadeo:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #00a9ec,
@@ -416,16 +414,15 @@ body {
   border: 5px solid #00c4ff;
   box-shadow: 0px 0px 10px #00c4ff;
 }
-.tadeo:hover h3{
+.tadeo:hover h3 {
   text-shadow: 0px 0px 10px #006488;
-
 }
-.tadeo:hover .persona-imagen{
-  scale:2.75;
+.tadeo:hover .persona-imagen {
+  scale: 2.75;
   transition: 5000ms;
 }
 
-.pulvi{
+.pulvi {
   background-image: repeating-linear-gradient(
     -45deg,
     #cf6400,
@@ -435,7 +432,7 @@ body {
   );
   border: 5px solid #df6c00;
 }
-.pulvi:hover{
+.pulvi:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #df6c00,
@@ -446,11 +443,11 @@ body {
   border: 5px solid #ff7b00;
   box-shadow: 0px 0px 10px #ff7b00;
 }
-.pulvi:hover h3{
+.pulvi:hover h3 {
   text-shadow: 0px 0px 10px #b45700;
 }
 
-.salas{
+.salas {
   background-image: repeating-linear-gradient(
     -45deg,
     #b4003c,
@@ -458,9 +455,9 @@ body {
     #ca0043 0,
     #ca0043 12px
   );
-  border: 5px solid #ca0043;  
+  border: 5px solid #ca0043;
 }
-.salas:hover{
+.salas:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #ca0043,
@@ -471,11 +468,11 @@ body {
   border: 5px solid #ff0054;
   box-shadow: 0px 0px 10px #ff0054;
 }
-.salas:hover h3{
+.salas:hover h3 {
   text-shadow: 0px 0px 10px #7e002a;
 }
 
-.maco{ 
+.maco {
   background-image: repeating-linear-gradient(
     -45deg,
     #008500,
@@ -485,7 +482,7 @@ body {
   );
   border: 5px solid #009e00;
 }
-.maco:hover{
+.maco:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #009e00,
@@ -496,11 +493,11 @@ body {
   border: 5px solid #00b800;
   box-shadow: 0px 0px 10px #00b800;
 }
-.maco:hover h3{
+.maco:hover h3 {
   text-shadow: 0px 0px 10px #005f00;
 }
 
-.nanu{
+.nanu {
   background-image: repeating-linear-gradient(
     -45deg,
     #7d009c,
@@ -510,7 +507,7 @@ body {
   );
   border: 5px solid #9700bd;
 }
-.nanu:hover{
+.nanu:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #9700bd,
@@ -521,11 +518,11 @@ body {
   border: 5px solid #b800ff;
   box-shadow: 0px 0px 10px #b800ff;
 }
-.nanu:hover h3{
+.nanu:hover h3 {
   text-shadow: 0px 0px 10px #540075;
 }
 
-.neck{
+.neck {
   background-image: repeating-linear-gradient(
     -45deg,
     #cf00cf,
@@ -535,7 +532,7 @@ body {
   );
   border: 5px solid #f800f8;
 }
-.neck:hover{
+.neck:hover {
   background-image: repeating-linear-gradient(
     -45deg,
     #cf00cf,
@@ -546,6 +543,6 @@ body {
   border: 5px solid #ff00ff;
   box-shadow: 0px 0px 10px #ff00ff;
 }
-.neck:hover h3{
+.neck:hover h3 {
   text-shadow: 0px 0px 10px #8d008d;
 }

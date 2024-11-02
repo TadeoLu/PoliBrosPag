@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapaComponent } from '../mapa/mapa.component';
 import { NgFor } from '@angular/common';
@@ -37,9 +43,7 @@ export class InicioComponent implements OnInit {
 
   filtrarMapas(categoria: string) {
     if (categoria === 'popular') {
-      this.filteredMapas = this.mapas.filter(
-        (mapa) => mapa.likes > 20
-      );
+      this.filteredMapas = this.mapas.filter((mapa) => mapa.likes > 20);
       this.filteredMapas.sort((a, b) => b.likes - a.likes);
     } else if (categoria === 'nuevo') {
       this.filteredMapas = this.mapas.filter(
