@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
@@ -33,21 +33,22 @@ export class VerMapaComponent {
   mapName: string = '';
   creator!: string;
   id!: number;
+  mapa!: IMapa;
 
   constructor(
     private tokenStorageService: TokenStorageService,
     private mapaService: MapaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
-        this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
-          this.id = mapa.id;
-          this.mapName = mapa.name;
-          this.creator = mapa.creator.username;
+        this.mapaService.getOneMapa(Number(id)).subscribe((mapa: any) => {
+          delete mapa._id;
+          this.mapa = mapa;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
         });
       }
@@ -128,5 +129,20 @@ export class VerMapaComponent {
     } else {
       console.error('El contexto 2D no está disponible.');
     }
+  }
+
+  clonar(){
+    console.log(this.mapa);
+    const mapaClone: IMapa = {
+      ...this.mapa,
+      id: -1,
+      name: this.mapa.name + " clon",
+      likes: 0,
+      creator: this.tokenStorageService.getUser(),
+      categoria: 'nuevo',
+    };
+    this.mapaService.postMapa(mapaClone).subscribe((id: number) => {
+      this.router.navigateByUrl(`/editar-mapa/${id}`);
+    });
   }
 }

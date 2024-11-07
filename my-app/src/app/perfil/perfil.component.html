@@ -9,7 +9,12 @@
     </div>
   </div>
   <div class="mismapas-container">
-    <div class="world-grid">
+    <div class="world-grid"
+    infiniteScroll
+    [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance"
+    [infiniteScrollThrottle]="throttleTime"
+    (scrolled)="loadMoreMapas()">
       <app-mapa *ngFor="let item of mapasCreados" [item]="item"></app-mapa>
     </div>
   </div>

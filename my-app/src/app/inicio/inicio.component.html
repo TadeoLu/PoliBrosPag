@@ -32,7 +32,13 @@
         </button>
         <button class="button" (click)="filtrarMapas('nuevo')">Nuevos</button>
       </div>
-      <div class="world-grid">
+      <div class="world-grid"
+      infiniteScroll
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollThrottle]="throttleTime"
+      [scrollWindow]="false"
+      [horizontal]="true"
+      (scrolled)="loadMoreMapas()">
         <app-mapa *ngFor="let item of filteredMapas" [item]="item"></app-mapa>
       </div>
     </div>

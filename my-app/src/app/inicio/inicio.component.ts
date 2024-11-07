@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { map } from 'rxjs';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'inicio-root',
   standalone: true,
-  imports: [RouterOutlet, MapaComponent, NgFor],
+  imports: [RouterOutlet, MapaComponent, NgFor, InfiniteScrollDirective],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
 })
@@ -27,11 +28,14 @@ export class InicioComponent implements OnInit {
   loggedIn: boolean = false;
   marioSrc: string = '../../../media/mario2.png';
 
+  currentPage: number = 1;    // Pagination page number
+
+  scrollDistance: number = 1;
+  scrollUpDistance: number = 1;
+  throttleTime: number = 300;
+
   ngOnInit() {
-    this.mapaService.getMapas().subscribe((data) => {
-      this.mapas = data;
-      this.filtrarMapas('nuevo');
-    }); // Mostrar mapas populares por defecto
+    this.loadMoreMapas();
     this.loggedIn = this.tokenStorageService.isLoggedIn();
   }
 
@@ -50,6 +54,14 @@ export class InicioComponent implements OnInit {
         (mapa) => mapa.categoria === 'nuevo'
       );
     }
+  }
+
+  loadMoreMapas(){
+    this.mapaService.getPage(this.currentPage).subscribe((data) => {
+      this.mapas = [...this.mapas, ...data];
+      this.currentPage++; 
+      this.filtrarMapas('nuevo');
+    }); 
   }
 
   routerPerfil() {
