@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMapa } from '../../models/Mapa';
+import { Dificultad, IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
@@ -30,9 +30,6 @@ export class VerMapaComponent {
     { name: 'Image 3', src: '../../facuhdr3.jpg' },
   ];
   grid: (Image | null)[][] = [];
-  mapName: string = '';
-  creator!: string;
-  id!: number;
   mapa!: IMapa;
 
   constructor(
@@ -50,6 +47,7 @@ export class VerMapaComponent {
           delete mapa._id;
           this.mapa = mapa;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
+          this.calcularDificultad();
         });
       }
     });
@@ -139,10 +137,45 @@ export class VerMapaComponent {
       name: this.mapa.name + " clon",
       likes: 0,
       creator: this.tokenStorageService.getUser(),
-      categoria: 'nuevo',
+      categoria: 'nuevo',      
     };
     this.mapaService.postMapa(mapaClone).subscribe((id: number) => {
       this.router.navigateByUrl(`/editar-mapa/${id}`);
     });
+  }
+
+  calcularDificultad(){
+    let total = 0;
+    for(let i of this.mapa.intentos){
+      total+=i;
+    }
+    const promedio = total/this.mapa.intentos.length;
+    console.log(this.mapa.intentos.length);
+    if(this.mapa.intentos.length === 0){
+      this.mapa.dificultad = Dificultad.noTesteado;
+      return;
+    }
+    if(promedio <= 2){
+      this.mapa.dificultad = Dificultad.facil;
+    }else if(promedio <= 10) {
+      this.mapa.dificultad = Dificultad.normal;
+    }else{
+      this.mapa.dificultad = Dificultad.dificil;
+    }
+  }
+
+  getImageForDificultad(): string {
+    switch (this.mapa.dificultad) {
+      case Dificultad.noTesteado:
+        return 'noTesteado.png';
+      case Dificultad.facil:
+        return 'facil.png';
+      case Dificultad.normal:
+        return 'medio.png';
+      case Dificultad.dificil:
+        return 'dificil.png';
+      default:
+        return '';
+    }
   }
 }

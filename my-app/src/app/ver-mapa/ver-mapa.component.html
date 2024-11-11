@@ -1,11 +1,14 @@
 <div class="todo">
   <div class="info-creator">
-    <h1 for="mapName" style="margin-right: 10px">
-      {{ mapName }}
-    </h1>
+    <h2 for="mapName" style="margin-right: 10px">
+      {{ mapa.name }}
+    </h2>
     <div class="right">
-      <h2>by {{ creator }}</h2>
-      <h2>codigo: {{ id }}</h2>
+      <h2>by {{ mapa.creator.username }}</h2>
+      <h2>codigo: {{ mapa.id }}</h2>
+      <h2>Dificultad: 
+        <img [src]="getImageForDificultad()">
+      </h2>
     </div>
     <button (click)="clonar()"><img src="clonar.png" alt=""></button>
   </div>
