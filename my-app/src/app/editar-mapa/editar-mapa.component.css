@@ -71,7 +71,7 @@ canvas {
   padding-left: 10px;
   vertical-align: middle;
 }
-#popup {
+.popup {
   width: 300px;
   padding: 20px;
   background: white;
@@ -82,7 +82,7 @@ canvas {
   left: 35%;
 }
 
-#popup::before {
+.popup::before {
   content: "";
   position: absolute;
   top: -10px;
@@ -203,4 +203,11 @@ h1.notLoggedIn {
   font-weight: 800;
   margin-left: 30px;
   margin-top: 10px;
+}
+
+.dificultad{
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding-left: 10px;
 }

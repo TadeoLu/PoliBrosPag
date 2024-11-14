@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgStyle } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMapa } from '../../models/Mapa';
+import { Dificultad, IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
@@ -298,6 +298,8 @@ export class CrearMapaComponent implements AfterViewInit {
       likes: 0,
       creator: this.tokenStorageService.getUser(),
       categoria: 'nuevo',
+      dificultad: Dificultad.noTesteado,
+      intentos: []
     };
     this.mapaService.postMapa(mapaPost).subscribe((id: number) => {
       this.idMapa = id;

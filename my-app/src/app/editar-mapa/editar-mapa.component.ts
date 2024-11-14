@@ -1,7 +1,7 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common';
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMapa } from '../../models/Mapa';
+import { Dificultad, IMapa } from '../../models/Mapa';
 import { TokenStorageService } from '../token-storage.service';
 import { MapaService } from '../mapa/mapa.service';
 import { FormsModule } from '@angular/forms';
@@ -17,11 +17,11 @@ interface Image {
 @Component({
   selector: 'app-editar-mapa',
   standalone: true,
-  imports: [NgFor, FormsModule, NgStyle, NgClass],
+  imports: [NgFor, FormsModule, NgStyle, NgClass, NgIf],
   templateUrl: './editar-mapa.component.html',
   styleUrls: ['./editar-mapa.component.css'],
 })
-export class EditarMapaComponent implements AfterViewInit {
+export class EditarMapaComponent implements AfterViewInit, OnInit {
   @ViewChild('myCanvas', { static: true })
   canvasRef!: ElementRef<HTMLCanvasElement>;
   private squareWidth = 24;
@@ -59,7 +59,8 @@ export class EditarMapaComponent implements AfterViewInit {
   activoIndex: number | null = null;
   isGomaActivo: boolean = false;
   puedeEditar: boolean = true;
-
+  mapaCargado: boolean = false;
+  isVisibleBorrar: boolean = false;
   constructor(
     private tokenStorageService: TokenStorageService,
     private mapaService: MapaService,
@@ -75,9 +76,11 @@ export class EditarMapaComponent implements AfterViewInit {
       const id = params.get('id');
       if (id !== null) {
         this.mapaService.getOneMapa(Number(id)).subscribe((mapa: IMapa) => {
-          this.puedeEditar = this.isCreator(mapa.creator);
+          this.puedeEditar = this.isCreator(mapa.creator) || this.tokenStorageService.getRol() === "Moderador";
           this.mapa = mapa;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
+          this.mapaCargado = true;
+          console.log(mapa);
         });
       }
     });
@@ -368,6 +371,21 @@ export class EditarMapaComponent implements AfterViewInit {
     }
   }
 
+  getImageForDificultad(): string {
+    switch (this.mapa.dificultad) {
+      case Dificultad.noTesteado:
+        return 'noTesteado.png';
+      case Dificultad.facil:
+        return 'facil.png';
+      case Dificultad.normal:
+        return 'medio.png';
+      case Dificultad.dificil:
+        return 'dificil.png';
+      default:
+        return '';
+    }
+  }
+
   allEspecialImagesPlaced(): boolean {
     console.log(this.imagenesEspeciales);
     return Array.from(this.imagenesEspeciales.values()).every((value) => value);
@@ -381,6 +399,10 @@ export class EditarMapaComponent implements AfterViewInit {
     this.isVisible = !this.isVisible; // Alterna la visibilidad
   }
 
+  togglePopupBorrar(){
+    this.isVisibleBorrar = !this.isVisibleBorrar;
+  }
+
   routerIniciarSesion() {
     this.router.navigate(['inicio-sesion']);
   }
@@ -390,5 +412,11 @@ export class EditarMapaComponent implements AfterViewInit {
   }
   copyText(text: string): void {
     this.clipboardService.copy(text);
+  }
+
+  borrarMapa() {
+    this.mapaService.deleteMapa(this.mapa.id).subscribe(() => {
+      window.location.reload();
+    });
   }
 }

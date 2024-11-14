@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMapa } from '../../models/Mapa';
+import { Dificultad, IMapa } from '../../models/Mapa';
 import { NgFor, NgStyle } from '@angular/common';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { MapaService } from './mapa.service';
@@ -50,6 +50,8 @@ export class MapaComponent {
         if (
           this.item.creator.username ==
           this.tokenStorageService.getUser().username
+          ||
+          this.tokenStorageService.getRol() === "Moderador"
         ) {
           this.router.navigateByUrl(`/editar-mapa/${id}`);
         } else {

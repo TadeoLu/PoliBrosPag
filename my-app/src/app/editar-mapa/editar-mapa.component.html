@@ -34,8 +34,22 @@
             </g>
           </svg>
         </button>
-        <h2>Codigo: </h2><h2 class="id-mapa">{{mapa?.id}}</h2>
+        <button class="btn tacho" (click)="togglePopupBorrar()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            height="20px"
+            viewBox="0 0 30 30"
+          >
+            <path
+              d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"
+            ></path>
+          </svg>
+        </button> 
+        <h2 style="margin-left: 10px;">Codigo: </h2><h2 style="margin-left: 2px;" class="id-mapa">{{mapa?.id}}</h2>
         <h2>Nombre: {{mapa?.name}}</h2>
+        <img *ngIf="mapaCargado" class="dificultad" [src]="getImageForDificultad()">
       </div>
       </div>
     </div>
@@ -50,13 +64,34 @@
         height="50"
       />
     </div>
-    <div [ngStyle]="{ display: isVisible ? 'block' : 'none' }" id="popup">
+    <div [ngStyle]="{ display: isVisible ? 'block' : 'none' }" class="popup">
       <div style="display: inline-block; margin-right: 20px">
         <label for="mapName" style="margin: 10px; font-size: xx-large"
           >Guardado</label
         >
       </div>
     </div>
+    <div class="popup" [ngStyle]="{ display: isVisibleBorrar ? 'block' : 'none' }" >
+      <div style="display: inline-block; margin-right: 20px">
+        <label for="mapName" style="margin: 10px; font-size: xx-large">
+          Seguro que quiere borrar
+        </label>
+      </div>
+      <button
+        (click)="togglePopupBorrar()" 
+        style="margin: 10px; background-color: red"
+        class="button"
+      >
+        CANCELAR
+      </button>
+      <button
+        (click)="borrarMapa()"
+        style="margin: 10px; background-color: #4caf50"
+        class="button"
+      >
+        BORRAR
+      </button>
+    </div>    
   </div>
   <div  [ngStyle]="{ display: puedeEditar ? 'none' : 'block' }"  class="container-canvas">
     <h1 class="notLoggedIn">No sos el creador de este mapa</h1>

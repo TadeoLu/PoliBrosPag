@@ -46,6 +46,15 @@ export class TokenStorageService {
     };
   }
 
+  public getRol(): string {
+    const user = window.sessionStorage.getItem('USER_KEY');
+    if (user) {
+      const parsed = JSON.parse(user);
+      return parsed.rol;
+    }
+    return "";
+  }
+
   getDecodedToken(): JwtPayload | null {
     const token = this.getToken();
     if (token) {

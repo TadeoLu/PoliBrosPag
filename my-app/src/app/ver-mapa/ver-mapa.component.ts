@@ -47,7 +47,6 @@ export class VerMapaComponent {
           delete mapa._id;
           this.mapa = mapa;
           this.loadJsonToCanvas(JSON.parse(mapa.valores as string));
-          this.calcularDificultad();
         });
       }
     });
@@ -142,26 +141,6 @@ export class VerMapaComponent {
     this.mapaService.postMapa(mapaClone).subscribe((id: number) => {
       this.router.navigateByUrl(`/editar-mapa/${id}`);
     });
-  }
-
-  calcularDificultad(){
-    let total = 0;
-    for(let i of this.mapa.intentos){
-      total+=i;
-    }
-    const promedio = total/this.mapa.intentos.length;
-    console.log(this.mapa.intentos.length);
-    if(this.mapa.intentos.length === 0){
-      this.mapa.dificultad = Dificultad.noTesteado;
-      return;
-    }
-    if(promedio <= 2){
-      this.mapa.dificultad = Dificultad.facil;
-    }else if(promedio <= 10) {
-      this.mapa.dificultad = Dificultad.normal;
-    }else{
-      this.mapa.dificultad = Dificultad.dificil;
-    }
   }
 
   getImageForDificultad(): string {
