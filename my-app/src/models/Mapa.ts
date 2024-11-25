@@ -1,6 +1,6 @@
 import { IUser } from "./User";
 
-  export enum Dificultad{
+  export enum Dificultad{//Enum
     noTesteado,
     facil,
     normal,
