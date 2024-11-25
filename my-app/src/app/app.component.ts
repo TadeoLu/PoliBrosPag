@@ -14,6 +14,7 @@ import { OnInit } from '@angular/core';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  title = 'my-app';
   loggedIn: boolean = false;
 
   ngOnInit(): void {
